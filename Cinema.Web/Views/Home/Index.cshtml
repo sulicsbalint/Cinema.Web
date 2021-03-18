@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Cinema.Web.Models.Movie>
+
+@{
+    ViewData["Title"] = "Főoldal";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a asp-controller="Movies">Filmek</a>.</p>
+</div>
+
+
+<table class="table">
+    <tbody>
+        <tr>
+            @for (var i = 0; i < 5; i++)
+            {
+                <td>
+                    @if (Model.ElementAt(i).Image != null)
+                    {
+                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.ElementAt(i).Id">
+                            <img src="@Url.Action("DisplayImage", "Movies", new { id = Model.ElementAt(i).Id })" class="poster" />
+                        </a>
+                        
+                    }
+                </td>
+            }
+        </tr>
+    </tbody>
+</table>
+
+@for (var i = 0; i < 5; i++)
+{
+    <td>
+        @if (Model.ElementAt(i).Image != null)
+        {
+            <img src="@Url.Action("DisplayImage", "Movies", new { id = Model.ElementAt(i).Id })" class="poster" />
+        }
+    </td>
+}
