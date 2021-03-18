@@ -1,0 +1,47 @@
+﻿body {
+    background-color: black;
+}
+
+.cont {
+    display: flex;
+    width: 100%;
+    padding: 0% 0%;
+    box-sizing: border-box;
+    height: 90vh;
+}
+
+.bo {
+    flex: 1;
+    overflow: hidden;
+    transition: .5s;
+    margin: 0 0.3%;
+    box-shadow: 0 20px 30px rgba(0,0,0,.1);
+    line-height: 10;
+    color: white;
+}
+
+    .bo > img {
+        width: 200%;
+        height: calc(100% - 10vh);
+        object-fit: cover;
+        transition: .5s;
+    }
+
+    .bo > span {
+        font-size: 3.8vh;
+        display: block;
+        text-align: center;
+        height: 15vh;
+        line-height: 2.6;
+    }
+
+    .bo:hover {
+        flex: 1 1 50%;
+        color: white;
+        text-decoration: none;
+    }
+
+        .bo:hover > img {
+            width: 100%;
+            height: 100%;
+        }
