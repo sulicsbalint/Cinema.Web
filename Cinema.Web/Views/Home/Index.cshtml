@@ -4,37 +4,84 @@
     ViewData["Title"] = "Főoldal";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a asp-controller="Movies">Filmek</a>.</p>
+<style>
+    body {
+        background-color: black;
+    }
+
+    .cont {
+        display: flex;
+        width: 100%;
+        padding: 0% 0%;
+        box-sizing: border-box;
+        height: 90vh;
+    }
+
+    .bo {
+        flex: 1;
+        overflow: hidden;
+        transition: .5s;
+        margin: 0 0.3%;
+        box-shadow: 0 20px 30px rgba(0,0,0,.1);
+        line-height: 10;
+        color: white;
+    }
+
+        .bo > img {
+            width: 200%;
+            height: calc(100% - 10vh);
+            object-fit: cover;
+            transition: .5s;
+        }
+
+        .bo > span {
+            font-size: 3.8vh;
+            display: block;
+            text-align: center;
+            height: 15vh;
+            line-height: 2.6;
+        }
+
+        .bo:hover {
+            flex: 1 1 50%;
+            color: white;
+            text-decoration: none;
+        }
+
+            .bo:hover > img {
+                width: 100%;
+                height: 100%;
+            }
+</style>
+
+<div class="cont" >
+    @for (var i = 0; i < 5; i++)
+    {
+    
+        <div class="bo">
+            <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.ElementAt(i).Id" class="bo">
+                <img src="@Url.Action("DisplayImage", "Movies", new { id = Model.ElementAt(i).Id })" />
+                <span>@Model.ElementAt(i).Title</span>
+            </a>
+        </div>
+    }
 </div>
 
+<!--<div class="cont">
+    @for (var i = 0; i < 5; i++)
+    {
+        <div class="bo">
+            <img src="@Url.Action("DisplayImage", "Movies", new { id = Model.ElementAt(i).Id })" />
+            <span>@Model.ElementAt(i).Title</span>
+        </div>
+    }
+</div>
 
-<table class="table">
-    <tbody>
-        <tr>
-            @for (var i = 0; i < 5; i++)
-            {
-                <td>
-                    @if (Model.ElementAt(i).Image != null)
-                    {
-                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.ElementAt(i).Id">
-                            <img src="@Url.Action("DisplayImage", "Movies", new { id = Model.ElementAt(i).Id })" class="poster" />
-                        </a>
-                        
-                    }
-                </td>
-            }
-        </tr>
-    </tbody>
-</table>
-
-@for (var i = 0; i < 5; i++)
-{
-    <td>
-        @if (Model.ElementAt(i).Image != null)
-        {
-            <img src="@Url.Action("DisplayImage", "Movies", new { id = Model.ElementAt(i).Id })" class="poster" />
-        }
-    </td>
-}
+<div style="width: 100%;">
+    @for (var i = 0; i < 5; i++)
+    {
+        <div>
+            <img src="@Url.Action("DisplayImage", "Movies", new { id = Model.ElementAt(i).Id })" style="width: 100%;"/>
+        </div>
+    }
+</div>-->

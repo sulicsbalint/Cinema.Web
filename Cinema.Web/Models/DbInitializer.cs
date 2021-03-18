@@ -15,7 +15,7 @@ namespace Cinema.Web.Models
             if (context.Movies.Any())
                 return;
 
-            var tenetPath = Path.Combine(imageDirectory, "tenet_big.jpg");
+            var tenetPath = Path.Combine(imageDirectory, "tenet.jpg");
             var path1917 = Path.Combine(imageDirectory, "1917.jpg");
             var rushPath = Path.Combine(imageDirectory, "rush.jpg");
             var vicePath = Path.Combine(imageDirectory, "vice.jpg");
