@@ -7,5 +7,6 @@ namespace Cinema.Web.Services
     {
         public List<Movie> GetMovies(string title = null);
         public Movie GetMovieById(int id);
+        public List<Screening> GetScreeningsByMovieId(int id);
     }
 }

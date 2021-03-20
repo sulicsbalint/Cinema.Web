@@ -27,6 +27,13 @@ namespace Cinema.Web.Services
                 .FirstOrDefault(m => m.Id == id);
         }
 
+        public List<Screening> GetScreeningsByMovieId(int id)
+        {
+            return _context.Screenings
+                .Where(s => s.MovieId == id)
+                .ToList();
+        }
+
         /*public List<Screening> GetScreeningsByMovieId(int id)
         {
             return _context.Screenings
