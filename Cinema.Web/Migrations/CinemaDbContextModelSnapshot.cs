@@ -29,6 +29,9 @@ namespace Cinema.Web.Migrations
                     b.Property<DateTime>("Added")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte[]>("Cover")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

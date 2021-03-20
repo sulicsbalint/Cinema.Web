@@ -31,5 +31,7 @@ namespace Cinema.Web.Models
         public virtual ICollection<Screening> Screenings { get; set; }
 
         public byte[] Image { get; set; }
+
+        public byte[] Cover { get; set; }
     }
 }

@@ -22,6 +22,13 @@ namespace Cinema.Web.Models
             var johnPath = Path.Combine(imageDirectory, "john_wick.jpg");
             var cherryPath = Path.Combine(imageDirectory, "cherry.jpg");
 
+            var tenetCover = Path.Combine(imageDirectory, "tenet_cover.jpg");
+            var cover1917 = Path.Combine(imageDirectory, "1917_cover.jpg");
+            var rushCover = Path.Combine(imageDirectory, "rush_cover.jpg");
+            var viceCover = Path.Combine(imageDirectory, "vice_cover.jpg");
+            var johnCover = Path.Combine(imageDirectory, "john_wick_cover.jpg");
+            var cherryCover = Path.Combine(imageDirectory, "cherry_cover.jpg");
+
             IList<Movie> defaultMovies = new List<Movie>
             {
                 new Movie
@@ -33,6 +40,7 @@ namespace Cinema.Web.Models
                     Description = "Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
                     Added = DateTime.Now,
                     Image = File.Exists(tenetPath) ? File.ReadAllBytes(tenetPath) : null,
+                    Cover = File.Exists(tenetCover) ? File.ReadAllBytes(tenetCover) : null,
                     Screenings = new List<Screening>
                     {
                         new Screening
@@ -98,6 +106,7 @@ namespace Cinema.Web.Models
                     Description = "April 6th, 1917. As a regiment assembles to wage war deep in enemy territory, two soldiers are assigned to race against time and deliver a message that will stop 1,600 men from walking straight into a deadly trap.",
                     Added = DateTime.Now,
                     Image = File.Exists(path1917) ? File.ReadAllBytes(path1917) : null,
+                    Cover = File.Exists(cover1917) ? File.ReadAllBytes(cover1917) : null,
                     Screenings = new List<Screening>
                     {
                         new Screening
@@ -163,6 +172,7 @@ namespace Cinema.Web.Models
                     Description = "The merciless 1970s rivalry between Formula One rivals James Hunt and Niki Lauda.",
                     Added = DateTime.Now,
                     Image = File.Exists(rushPath) ? File.ReadAllBytes(rushPath) : null,
+                    Cover = File.Exists(rushCover) ? File.ReadAllBytes(rushCover) : null,
                     Screenings = new List<Screening>
                     {
                         new Screening
@@ -228,6 +238,7 @@ namespace Cinema.Web.Models
                     Description = "The story of Dick Cheney, an unassuming bureaucratic Washington insider, who quietly wielded immense power as Vice President to George W. Bush, reshaping the country and the globe in ways that we still feel today.",
                     Added = DateTime.Now,
                     Image = File.Exists(vicePath) ? File.ReadAllBytes(vicePath) : null,
+                    Cover = File.Exists(viceCover) ? File.ReadAllBytes(viceCover) : null,
                     Screenings = new List<Screening>
                     {
                         new Screening
@@ -293,6 +304,7 @@ namespace Cinema.Web.Models
                     Description = "An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him.",
                     Added = DateTime.Now,
                     Image = File.Exists(johnPath) ? File.ReadAllBytes(johnPath) : null,
+                    Cover = File.Exists(johnCover) ? File.ReadAllBytes(johnCover) : null,
                     Screenings = new List<Screening>
                     {
                         new Screening
@@ -358,6 +370,7 @@ namespace Cinema.Web.Models
                     Description = "An Army medic suffering from post-traumatic stress disorder becomes a serial bank robber after an addiction to drugs puts him in debt.",
                     Added = DateTime.Now,
                     Image = File.Exists(cherryPath) ? File.ReadAllBytes(cherryPath) : null,
+                    Cover = File.Exists(cherryCover) ? File.ReadAllBytes(cherryCover) : null,
                     Screenings = new List<Screening>
                     {
                         new Screening
