@@ -94,6 +94,58 @@ namespace Cinema.Web.Models
                                     }
                                 }
                             }
+                        },
+                        new Screening
+                        {
+                            StartTime = DateTime.Now.AddDays(6),
+                            Rooms = new List<Room>
+                            {
+                                new Room
+                                {
+                                    Name = "Room 7",
+                                    Rows = 3,
+                                    Columns = 2,
+                                    Seats = new List<Seat>
+                                    {
+                                        new Seat
+                                        {
+                                            Row = 1,
+                                            Column = 1,
+                                            Status = 0
+                                        },
+                                        new Seat
+                                        {
+                                            Row = 1,
+                                            Column = 2,
+                                            Status = 0
+                                        },
+                                        new Seat
+                                        {
+                                            Row = 1,
+                                            Column = 3,
+                                            Status = 0
+                                        },
+                                        new Seat
+                                        {
+                                            Row = 2,
+                                            Column = 1,
+                                            Status = 0
+                                        },
+                                        new Seat
+                                        {
+                                            Row = 2,
+                                            Column = 2,
+                                            Status = 0
+                                        },
+                                        new Seat
+                                        {
+                                            Row = 2,
+                                            Column = 3,
+                                            Status = 0
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },

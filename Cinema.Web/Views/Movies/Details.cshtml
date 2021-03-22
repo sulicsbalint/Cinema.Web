@@ -1,298 +1,53 @@
-﻿@model Cinema.Web.Models.Movie
-
-@{
-    //ViewData["Title"] = "Részletek";
+﻿@{
+    ViewData["Title"] = ViewBag.Movie.Title + " részletek";
 }
 
-@*<style>
-        * {
-          box-sizing: border-box;
-          margin: 0;
-        }
-
-        html, body {
-          margin: 0;
-          background: black;
-          font-family: 'Montserrat', helvetica, arial, sans-serif;
-          font-size: 14px;
-          font-weight: 400;
-        }
-
-        .movie_card {
-            position: relative;
-            display: block;
-            width: 800px;
-            height: 350px;
-            margin: 100px auto;
-            overflow: hidden;
-            border-radius: 10px;
-            transition: all 0.4s;
-        }
-
-        .movie_card:hover {
-            transform: scale(1.02);
-            transition: all 0.4s;
-        }
-
-        .movie_card > .info_section {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background-blend-mode: multiply;
-            z-index: 2;
-            border-radius: 10px;
-        }
-
-        .movie_card > .info_section > .movie_header {
-            position: relative;
-            padding: 25px;
-            height: 40%;
-        }
-
-        .movie_header > h1 {
-            color: #fff;
-            font-weight: 400;
-        }
-
-        .movie_header > h4 {
-            color: #9ac7fa;
-            font-weight: 400;
-        }
-
-        .movie_header > .minutes {
-            display: inline-block;
-            margin-top: 10px;
-            color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            border: 1px solid rgba(255,255,255,0.13);
-        }
-
-        .movie_header > .type {
-            display: inline-block;
-            color: #cee4fd;
-            margin-left: 10px;
-        }
-
-        .movie_header > .locandina {
-            position: relative;
-            float: left;
-            margin-right: 20px;
-            height: 120px;
-            box-shadow: 0 0 20px -10px rgba(0,0,0,0.5);
-        }
-
-        .movie_card > .info_section > .movie_desc {
-            padding: 25px;
-            height: 50%;
-        }
-
-        .movie_desc > .text {
-            color: #cfd6e1;
-        }
-
-        .movie_card > .info_section > .movie_social {
-            height: 10%;
-            padding-left: 15px;
-            padding-bottom: 20px;
-        }
-
-        .movie_social > ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .movie_social > li {
-            display: inline-block;
-            color: rgba(255,255,255,0.4);
-            transition: color 0.3s;
-            transition-delay: 0.15s;
-            margin: 0 10px;
-        }
-
-        .movie_social > li:hover {
-            transition: color 0.3s;
-            color: rgba(255,255,255,0.8);
-        }
-
-        .movie_social > li > i {
-            font-size: 19px;
-            cursor: pointer;
-        }
-
-        .blur_back{
-        position: absolute;
-        top: 0;
-        z-index: 1;
-        height: 100%; right: 0;
-        background-size: cover;
-        border-radius: 11px;
-        }
-
-        .bright_back {
-            background: url("@Url.Action("DisplayImage", "Movies", new { id = ViewBag.Movie.Id })");
-        }
-    </style>
-
-    <div class="movie_card" id="bright">
-        <div class="info_section">
-            <div class="movie_header">
-                <img class="locandina" src="@Url.Action("DisplayImage", "Movies", new { id = ViewBag.Movie.Id })" />
-                <h1>@ViewBag.Movie.Title</h1>
-                <h4>@ViewBag.Movie.Director</h4>
-                <span class="minutes">@ViewBag.Movie.Duration min</span>
-                <p class="type">Action, Crime, Fantasy</p>
-            </div>
-            <div class="movie_desc">
-                <p class="text">
-                   @ViewBag.Movie.Description
-                </p>
-            </div>
-            <div class="movie_social">
-                <ul>
-                    <li><i class="material-icons">share</i></li>
-                    <li><i class="material-icons"></i></li>
-                    <li><i class="material-icons">chat_bubble</i></li>
-                </ul>
-            </div>
-        </div>
-        <div class="blur_back bright_back"></div>
-    </div>
-
-
-
-    <div>
-        <h4>Film</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Title)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Director)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Director)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Protagonist)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Protagonist)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Duration)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Duration)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Added)
-            </dt>
-            <dd class="col-sm-10">
-                @ViewBag.Movie.Added
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Image)
-            </dt>
-            <dd class="col-sm-10">
-                <img src="@Url.Action("DisplayImage", "Movies", new { id = ViewBag.Movie.Id })"/>
-            </dd>
-        </dl>
-    </div>
-
-    @foreach (Screening screening in ViewBag.Screenings)
-    {
-        <div>@screening.StartTime</div>
-    }
-
-
-    <!--<div>
-        <a asp-action="Index" asp-controller="Screenings">Back to List</a>
-    </div>-->
-*@
-
 <style>
-    body {
-        background-color: black;
-    }
-    .movie_card {
-        width: 100%;
-    }
-
-    .movie_container {
-        width: 100%;
-        margin: 0 auto;
-        border-radius: 10px;
-        position: relative;
-    }
-
-    .movie_poster {
-        position: absolute;
-        margin-top: 20vh;
-        z-index: 2;
-        left: 40px;
-        width: 20%;
-        /*height: 40vh;*/
-    }
-
-    .movie_hero {
-        height: 100%;
-        margin: 0;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
-
-        .movie_hero::before {
-            content: '';
-            width: 100%;
-            height: 50vh;
-            position: absolute;
-            overflow: hidden;
-            background: url("@Url.Action("DisplayCover", "Movies", new { id = ViewBag.Movie.Id })");
-            z-index: -1;
-        }
-
     .movie_details {
-        padding: 190px 0 0 40vh;
-        border: dashed;
+        padding: 190px 0 0 300px;
+        background-image: linear-gradient(to bottom, rgba(51, 51, 77, 0.1), rgba(0, 0, 0, 1)),url("@Url.Action("DisplayCover", "Movies", new { id = ViewBag.Movie.Id })");
     }
-
-        .movie_details > .movie_title {
-            color: black;
-            font-size: 60px;
-            margin-bottom: 13px;
-            position: relative;
-            opacity: 0.8;
-
-        }
-
-        .movie_details > .movie_duration {
-            margin-left: 24px;
-        }
 </style>
+
+<link rel="stylesheet" href="~/css/details.css" />
 
 <div class="movie_card">
     <div class="movie_container">
-        <img src="@Url.Action("DisplayImage", "Movies", new { id = ViewBag.Movie.Id })" class="movie_poster"/>
+        <img src="@Url.Action("DisplayImage", "Movies", new { id = ViewBag.Movie.Id })" class="movie_poster" />
 
         <div class="movie_hero">
             <div class="movie_details">
                 <div class="movie_title">@ViewBag.Movie.Title</div>
-                <span class="movie_duration">@ViewBag.Movie.Duration</span>
             </div>
         </div>
+
+        <div class="movie_description">
+            <div class="movie_col2">
+                <dl>
+                    <dt>Hossz</dt>
+                    <dd>@ViewBag.Movie.Duration perc</dd>
+                    <dt>Rendező</dt>
+                    <dd>@ViewBag.Movie.Director</dd>
+                    <dt>Főszereplő</dt>
+                    <dd>@ViewBag.Movie.Protagonist</dd>
+                    <dt>Ismertető</dt>
+                    <dd>@ViewBag.Movie.Description</dd>
+                </dl>
+            </div>
+        </div>
+
+        <h2>Vetítések</h2>
+
+        <ol class="screenings_list">
+            @foreach (Screening item in ViewBag.Movie.Screenings)
+            {
+                <li>
+                    @item.StartTime.ToString("yyyy/MM/dd HH:mm")
+                    <a asp-controller="Screenings" asp-action="Details" asp-route-id="@item.Id">
+                        <span>Foglalás</span>
+                    </a>
+                </li>
+            }
+        </ol>
     </div>
 </div>
