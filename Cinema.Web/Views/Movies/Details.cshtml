@@ -5,7 +5,8 @@
 <style>
     .movie_details {
         padding: 190px 0 0 300px;
-        background-image: linear-gradient(to bottom, rgba(51, 51, 77, 0.1), rgba(0, 0, 0, 1)),url("@Url.Action("DisplayCover", "Movies", new { id = ViewBag.Movie.Id })");
+        background-image: linear-gradient(to bottom, rgba(51, 51, 77, 0.1), rgba(0, 0, 0, 100%)),url("@Url.Action("DisplayCover", "Movies", new { id = ViewBag.Movie.Id })");
+        background-position: center top;
     }
 </style>
 

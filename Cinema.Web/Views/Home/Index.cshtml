@@ -4,19 +4,11 @@
     ViewData["Title"] = "Főoldal";
 }
 
-<link rel="stylesheet" href="~/css/homepage.css"/>
+<link rel="stylesheet" href="~/css/homepage.css" />
 
-<style>
-    .home_title {
-        color: white;
-        margin: 30px;
-        text-align: center;
-    }
-</style>
+<h1 style="color: white">Legújabb filmek</h1>
 
-<h1 class="home_title">Legújabb filmek</h1>
-
-<div class="cont" >
+<div class="cont">
     @for (var i = 0; i < 5; i++)
     {
         <div class="bo">
@@ -28,4 +20,29 @@
     }
 </div>
 
-<h1 class="home_title">Mai vetítések</h1>
+<h1 style="color: white">Mai vetítések</h1>
+
+@if (ViewBag.Today.Count != 0)
+{
+    <div class="cont">
+        @foreach (Screening item in ViewBag.Today)
+        {
+            foreach (Movie movie in ViewBag.Movies)
+            {
+                @if (movie.Id == item.MovieId)
+                {
+                    <div class="bo">
+                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="bo">
+                            <img src="@Url.Action("DisplayImage", "Movies", new { id = movie.Id })" />
+                        <span>@movie.Title - @item.StartTime.ToString("MM/dd/ hh:mm")</span>
+                        </a>
+                    </div>
+                }
+            }
+        }
+    </div>
+}
+else
+{
+    <span style="color: white;">Nincs ma vetítés</span>
+}

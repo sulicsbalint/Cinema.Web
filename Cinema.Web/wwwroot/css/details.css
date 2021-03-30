@@ -121,7 +121,7 @@ a, a:hover {
 }
 
     .screenings_list a:hover {
-        color: rgb(105, 105, 105);
+        color: dimgray;
     }
 
 .screenings_list span {

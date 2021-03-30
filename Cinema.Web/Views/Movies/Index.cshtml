@@ -4,66 +4,26 @@
     ViewData["Title"] = "Műsor";
 }
 
-<h1>Műsor</h1>
+<link rel="stylesheet" href="~/css/movies.css" />
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Director)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Protagonist)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Added)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th></th>
+<h1 style="margin-bottom: 30px;">Filmszínház műsor</h1>
+
+<div class="movie_list">
+    <table class="movie_table">
+        @foreach (Movie item in Model)
+        {
+        <tr class="movie_tr" style="background-image: linear-gradient(to left, rgba(51, 51, 77, 0.1), rgba(0, 0, 0, 100%)), url( @Url.Action("DisplayCover", "Movies", new { id = item.Id }) );">
+            <td class="movie_td">
+                @item.Title
+                <p>@item.Description</p>
+                <p>
+                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
+                        Részletek...
+                    </a>
+                </p>
+            </td>
+            <td class="movie_td"></td>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Director)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Protagonist)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Added)
-            </td>
-            <td>
-                @if(item.Image != null)
-                {
-                    <img src="@Url.Action("DisplayImage", "Movies", new { id = item.Id })" class="poster"/>
-                }
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        }
+    </table>
+</div>

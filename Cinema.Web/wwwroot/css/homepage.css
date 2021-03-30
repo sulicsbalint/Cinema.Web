@@ -20,6 +20,12 @@
     color: white;
 }
 
+.home_title {
+    color: white;
+    margin: 30px;
+    text-align: center;
+}
+
     .bo > img {
         width: 200%;
         height: calc(100% - 10vh);
