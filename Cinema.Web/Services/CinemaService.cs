@@ -1,4 +1,5 @@
 ﻿using Cinema.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,6 +26,20 @@ namespace Cinema.Web.Services
         {
             return _context.Movies
                 .FirstOrDefault(m => m.Id == id);
+        }
+
+        public List<Screening> GetScreenings()
+        {
+            return _context.Screenings
+                .OrderBy(m => m.StartTime)
+                .ToList();
+        }
+
+        public List<Screening> GetTodaysScreenings()
+        {
+            return _context.Screenings
+                .Where(s => s.StartTime.Date.Equals(DateTime.Now.Date))
+                .ToList();
         }
 
         public List<Screening> GetScreeningsByMovieId(int id)

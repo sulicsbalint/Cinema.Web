@@ -19,6 +19,9 @@ namespace Cinema.Web.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Movies = _service.GetMovies();
+            ViewBag.Screenings = _service.GetScreenings();
+            ViewBag.Today = _service.GetTodaysScreenings();
             return View(_service.GetMovies());
         }
 
