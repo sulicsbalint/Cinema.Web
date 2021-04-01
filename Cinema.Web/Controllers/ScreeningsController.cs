@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,29 +13,32 @@ namespace Cinema.Web.Controllers
         private readonly CinemaDbContext _context;
         private readonly ICinemaService _service;
 
-        public ScreeningsController(CinemaDbContext context)
+        public ScreeningsController(CinemaDbContext context, ICinemaService service)
         {
+            _service = service;
             _context = context;
         }
 
         // GET: Screenings
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var cinemaDbContext = _context.Screenings.Include(s => s.Movie);
-            return View(await cinemaDbContext.ToListAsync());
+            var cinemaDbContext = _context.Screenings.Include(s => s.Movie).Include(s => s.Room);
+            return View(cinemaDbContext.ToList());
         }
 
         // GET: Screenings/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var screening = await _context.Screenings
+            var screening = _context.Screenings
                 .Include(s => s.Movie)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(s => s.Room)
+                .Include(s => s.Seats)
+                .FirstOrDefault(m => m.Id == id);
             if (screening == null)
             {
                 return NotFound();
@@ -50,6 +51,7 @@ namespace Cinema.Web.Controllers
         public IActionResult Create()
         {
             ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Description");
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
             return View();
         }
 
@@ -58,7 +60,7 @@ namespace Cinema.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MovieId,StartTime")] Screening screening)
+        public async Task<IActionResult> Create([Bind("Id,MovieId,StartTime,RoomId")] Screening screening)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +69,7 @@ namespace Cinema.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Description", screening.MovieId);
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", screening.RoomId);
             return View(screening);
         }
 
@@ -84,6 +87,7 @@ namespace Cinema.Web.Controllers
                 return NotFound();
             }
             ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Description", screening.MovieId);
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", screening.RoomId);
             return View(screening);
         }
 
@@ -92,7 +96,7 @@ namespace Cinema.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MovieId,StartTime")] Screening screening)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MovieId,StartTime,RoomId")] Screening screening)
         {
             if (id != screening.Id)
             {
@@ -120,6 +124,7 @@ namespace Cinema.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Description", screening.MovieId);
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", screening.RoomId);
             return View(screening);
         }
 
@@ -133,6 +138,7 @@ namespace Cinema.Web.Controllers
 
             var screening = await _context.Screenings
                 .Include(s => s.Movie)
+                .Include(s => s.Room)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (screening == null)
             {

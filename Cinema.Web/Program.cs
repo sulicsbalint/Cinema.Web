@@ -1,4 +1,3 @@
-using Cinema.Web.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 

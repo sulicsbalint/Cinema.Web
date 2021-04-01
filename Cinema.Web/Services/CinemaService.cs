@@ -1,6 +1,8 @@
 ﻿using Cinema.Web.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Cinema.Web.Services
@@ -31,9 +33,18 @@ namespace Cinema.Web.Services
         public List<Screening> GetScreenings()
         {
             return _context.Screenings
-                .OrderBy(m => m.StartTime)
+                .Include(s => s.Movie)
+                .OrderBy(s => s.StartTime)
                 .ToList();
         }
+
+        /*public Screening GetScreeningById(int id)
+        {
+            return _context.Screenings
+                .Include(s => s.Rooms)
+                .Include(s => s.Movie)
+                .FirstOrDefault(m => m.Id == id);
+        }*/
 
         public List<Screening> GetTodaysScreenings()
         {
@@ -46,47 +57,85 @@ namespace Cinema.Web.Services
         {
             return _context.Screenings
                 .Where(s => s.MovieId == id)
+                .OrderBy(s => s.StartTime)
                 .ToList();
         }
 
-        /*public List<Screening> GetScreeningsByMovieId(int id)
+        /*public Room GetRoomByScreeningId(int id)
         {
-            return _context.Screenings
-                .Where(s => s.Id == id)
-                .ToList();
+            return _context.Rooms
+                .Include(r => r.Seats)
+                .Include(r => r.Screening)
+                .Include(r => r.Screening.Movie)
+                .FirstOrDefault(r => r.ScreeningId == id);
         }
 
-        public void AddMovie(Movie movie)
+        public bool UpdateScreening(Screening screening)
         {
-            if (movie == null)
+            try
             {
-                throw new ArgumentNullException();
+                _context.Update(screening);
+                foreach (Room item in screening.Rooms)
+                {
+                    _context.Update(item.Seats);
+                }
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+            catch (DbUpdateException)
+            {
+                return false;
             }
 
-            _context.Movies.Add(movie);
-            _context.SaveChanges();
+            return true;
         }
 
-        public void AddScreening(Screening screening)
+        public bool UpdateSeats(List<Seat> seats)
         {
-            if (screening == null)
-                throw new ArgumentNullException();
+            try
+            {
+                foreach (var item in seats)
+                {
+                    var seat = _context.Seats
+                        .Where(s => s.Id == item.Id)
+                        .FirstOrDefault();
+                    Debug.WriteLine(item.Status);
+                    seat.Status = item.Status;
+                    _context.Update(seat);
+                }
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return false;
+            }
 
-            _context.Screenings.Add(screening);
-            _context.SaveChanges();
+            return true;
         }
 
-        public void RemoveMovieByName(string title, int id)
+        public bool UpdateRoom(Room room)
         {
-            Movie movie = _context.Movies
-                .Where(m => m.Id == id)
-                .FirstOrDefault(m => m.Title == title);
+            try
+            {
+                _context.Update(room);
+                //foreach (var item in room.Seats)
+                //{
+                //    var seat = _context.Seats
+                //        .Where(s => s.Id == item.Id)
+                //        .FirstOrDefault();
+                //    _context.Update(seat);
+                //}
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return false;
+            }
 
-            if (movie == null)
-                return;
-
-            _context.Movies.Remove(movie);
-            _context.SaveChanges();
+            return true;
         }*/
     }
 }

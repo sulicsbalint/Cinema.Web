@@ -17,6 +17,11 @@ namespace Cinema.Web.Models
         [Required]
         public DateTime StartTime { get; set; }
 
-        public virtual ICollection<Room> Rooms { get; set; }
+        public Int32 RoomId { get; set; }
+
+        [Required]
+        public virtual Room Room { get; set; }
+
+        public virtual ICollection<Seat> Seats { get; set; }
     }
 }

@@ -12,18 +12,18 @@
     <table class="movie_table">
         @foreach (Movie item in Model)
         {
-        <tr class="movie_tr" style="background-image: linear-gradient(to left, rgba(51, 51, 77, 0.1), rgba(0, 0, 0, 100%)), url( @Url.Action("DisplayCover", "Movies", new { id = item.Id }) );">
-            <td class="movie_td">
-                @item.Title
-                <p>@item.Description</p>
-                <p>
-                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
-                        Részletek...
-                    </a>
-                </p>
-            </td>
-            <td class="movie_td"></td>
-        </tr>
+            <tr class="movie_tr" style="background-image: linear-gradient(to left, rgba(51, 51, 77, 0.1), rgba(0, 0, 0, 100%)), url( @Url.Action("DisplayCover", "Movies", new { id = item.Id }) );">
+                <td class="movie_td">
+                    @item.Title
+                    <p>@item.Description</p>
+                    <p>
+                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
+                            Részletek...
+                        </a>
+                    </p>
+                </td>
+                <td class="movie_td"></td>
+            </tr>
         }
     </table>
 </div>

@@ -1,29 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Cinema.Web.Models;
 using Cinema.Web.Services;
 
 namespace Cinema.Web.Controllers
 {
     public class MoviesController : Controller
     {
+        private readonly CinemaDbContext _context;
+
         private readonly ICinemaService _service;
 
-        public MoviesController(ICinemaService service)
+        public MoviesController(CinemaDbContext context, ICinemaService service)
         {
             _service = service;
+            _context = context;
         }
 
         // GET: Movies
         public IActionResult Index()
         {
             return View(_service.GetMovies());
-        }
-
-        // GET: Movies/Details/5
-        public IActionResult Details(int id)
-        {
-            ViewBag.Movie = _service.GetMovieById(id);
-            ViewBag.Screenings = _service.GetScreeningsByMovieId(id);
-            return View();
         }
 
         public IActionResult DisplayImage(int id)
@@ -44,7 +43,26 @@ namespace Cinema.Web.Controllers
             return base.File(movie.Cover, "image/jpg");
         }
 
-        /*
+        // GET: Movies/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Movies
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Movie = _service.GetMovieById((int)id);
+            ViewBag.Screenings = _service.GetScreeningsByMovieId((int)id);
+            return View();
+        }
+
         // GET: Movies/Create
         public IActionResult Create()
         {
@@ -56,7 +74,7 @@ namespace Cinema.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Director,Protagonist,Description,Duration,Added")] Movie movie)
+        public async Task<IActionResult> Create([Bind("Id,Title,Director,Star,Description,Duration,Image,Cover,Added")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +106,7 @@ namespace Cinema.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,Protagonist,Description,Duration,Added")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,Star,Description,Duration,Image,Cover,Added")] Movie movie)
         {
             if (id != movie.Id)
             {
@@ -150,6 +168,6 @@ namespace Cinema.Web.Controllers
         private bool MovieExists(int id)
         {
             return _context.Movies.Any(e => e.Id == id);
-        }*/
+        }
     }
 }

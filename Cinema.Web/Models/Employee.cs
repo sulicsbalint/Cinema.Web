@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cinema.Web.Models
 {
-    public class Room
+    public class Employee
     {
         [Key]
         public Int32 Id { get; set; }
@@ -13,11 +12,9 @@ namespace Cinema.Web.Models
         public String Name { get; set; }
 
         [Required]
-        public Int32 Rows { get; set; }
+        public String UserName { get; set; }
 
         [Required]
-        public Int32 Columns { get; set; }
-
-        public virtual ICollection<Screening> Screenings { get; set; }
+        public String Password { get; set; }
     }
 }

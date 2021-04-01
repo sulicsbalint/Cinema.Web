@@ -8,10 +8,11 @@ namespace Cinema.Web.Models
         [Key]
         public Int32 Id { get; set; }
 
-        public Int32 RoomId { get; set; }
+        public Int32 ScreeningId { get; set; }
 
         [Required]
-        public virtual Room Room { get; set; }
+        public virtual Screening Screening { get; set; }
+
 
         [Required]
         public Int32 Row { get; set; }

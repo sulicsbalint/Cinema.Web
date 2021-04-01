@@ -16,7 +16,7 @@ namespace Cinema.Web.Models
         public String Director { get; set; }
 
         [Required]
-        public String Protagonist { get; set; }
+        public String Star { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
@@ -25,13 +25,13 @@ namespace Cinema.Web.Models
         [Required]
         public Int32 Duration { get; set; }
 
+        public byte[] Image { get; set; }
+
+        public byte[] Cover { get; set; }
+
         [Required]
         public DateTime Added { get; set; }
 
         public virtual ICollection<Screening> Screenings { get; set; }
-
-        public byte[] Image { get; set; }
-
-        public byte[] Cover { get; set; }
     }
 }

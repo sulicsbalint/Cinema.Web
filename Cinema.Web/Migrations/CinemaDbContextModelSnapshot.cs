@@ -19,6 +19,30 @@ namespace Cinema.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Cinema.Web.Models.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("Cinema.Web.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -46,7 +70,7 @@ namespace Cinema.Web.Migrations
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("Protagonist")
+                    b.Property<string>("Star")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -76,12 +100,7 @@ namespace Cinema.Web.Migrations
                     b.Property<int>("Rows")
                         .HasColumnType("int");
 
-                    b.Property<int>("ScreeningId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ScreeningId");
 
                     b.ToTable("Rooms");
                 });
@@ -96,12 +115,17 @@ namespace Cinema.Web.Migrations
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MovieId");
+
+                    b.HasIndex("RoomId");
 
                     b.ToTable("Screenings");
                 });
@@ -122,10 +146,10 @@ namespace Cinema.Web.Migrations
                     b.Property<int?>("ReserverPhone")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int>("Row")
                         .HasColumnType("int");
 
-                    b.Property<int>("Row")
+                    b.Property<int>("ScreeningId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -133,18 +157,9 @@ namespace Cinema.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("ScreeningId");
 
                     b.ToTable("Seats");
-                });
-
-            modelBuilder.Entity("Cinema.Web.Models.Room", b =>
-                {
-                    b.HasOne("Cinema.Web.Models.Screening", "Screening")
-                        .WithMany("Rooms")
-                        .HasForeignKey("ScreeningId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Cinema.Web.Models.Screening", b =>
@@ -154,13 +169,19 @@ namespace Cinema.Web.Migrations
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Cinema.Web.Models.Room", "Room")
+                        .WithMany("Screenings")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Cinema.Web.Models.Seat", b =>
                 {
-                    b.HasOne("Cinema.Web.Models.Room", "Room")
+                    b.HasOne("Cinema.Web.Models.Screening", "Screening")
                         .WithMany("Seats")
-                        .HasForeignKey("RoomId")
+                        .HasForeignKey("ScreeningId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
