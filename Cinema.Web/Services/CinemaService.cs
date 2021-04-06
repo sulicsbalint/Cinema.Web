@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Cinema.Web.Services
@@ -34,17 +33,19 @@ namespace Cinema.Web.Services
         {
             return _context.Screenings
                 .Include(s => s.Movie)
+                .Include(s => s.Room)
                 .OrderBy(s => s.StartTime)
                 .ToList();
         }
 
-        /*public Screening GetScreeningById(int id)
+        public Screening GetScreeningById(int id)
         {
             return _context.Screenings
-                .Include(s => s.Rooms)
+                .Include(s => s.Room)
                 .Include(s => s.Movie)
+                .Include(s => s.Seats)
                 .FirstOrDefault(m => m.Id == id);
-        }*/
+        }
 
         public List<Screening> GetTodaysScreenings()
         {
@@ -61,13 +62,17 @@ namespace Cinema.Web.Services
                 .ToList();
         }
 
-        /*public Room GetRoomByScreeningId(int id)
+        public List<Room> GetRooms()
         {
             return _context.Rooms
-                .Include(r => r.Seats)
-                .Include(r => r.Screening)
-                .Include(r => r.Screening.Movie)
-                .FirstOrDefault(r => r.ScreeningId == id);
+                .ToList();
+        }
+
+        public List<Seat> GetSeatsByScreeningId(int id)
+        {
+            return _context.Seats
+                .Where(s => s.ScreeningId == id)
+                .ToList();
         }
 
         public bool UpdateScreening(Screening screening)
@@ -75,10 +80,6 @@ namespace Cinema.Web.Services
             try
             {
                 _context.Update(screening);
-                foreach (Room item in screening.Rooms)
-                {
-                    _context.Update(item.Seats);
-                }
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
@@ -97,16 +98,12 @@ namespace Cinema.Web.Services
         {
             try
             {
-                foreach (var item in seats)
-                {
-                    var seat = _context.Seats
-                        .Where(s => s.Id == item.Id)
-                        .FirstOrDefault();
-                    Debug.WriteLine(item.Status);
-                    seat.Status = item.Status;
-                    _context.Update(seat);
-                }
+                _context.UpdateRange(seats);
                 _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
             }
             catch (DbUpdateException)
             {
@@ -115,27 +112,5 @@ namespace Cinema.Web.Services
 
             return true;
         }
-
-        public bool UpdateRoom(Room room)
-        {
-            try
-            {
-                _context.Update(room);
-                //foreach (var item in room.Seats)
-                //{
-                //    var seat = _context.Seats
-                //        .Where(s => s.Id == item.Id)
-                //        .FirstOrDefault();
-                //    _context.Update(seat);
-                //}
-                _context.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                return false;
-            }
-
-            return true;
-        }*/
     }
 }

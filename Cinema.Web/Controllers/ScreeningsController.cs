@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cinema.Web.Models;
 using Cinema.Web.Services;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Cinema.Web.Controllers
 {
@@ -45,6 +47,51 @@ namespace Cinema.Web.Controllers
             }
 
             return View(screening);
+        }
+
+        public IActionResult Reserve(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var seats = _service.GetSeatsByScreeningId((int)id);
+
+            if (seats == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Screenings = new SelectList(_service.GetScreenings(), "Id", "StartTime", seats[0].ScreeningId);
+            return View(seats);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Reserve(int id, List<SeatViewModel> vm)
+        {
+            Debug.WriteLine("Screening id: " + id + " ViewModelHossza: " + vm.Count);
+            if (id != vm.ElementAt(0).ScreeningId)
+            {
+                return NotFound();
+            }
+
+            List<Seat> seats = new List<Seat>();
+            
+            foreach (Seat item in vm)
+            {
+                seats.Add((Seat)item);
+            }
+
+            if (ModelState.IsValid)
+            {
+                _service.UpdateSeats(seats);
+                return RedirectToAction("Index", "Screenings");
+            }
+
+            ViewBag.Screenings = new SelectList(_service.GetScreenings(), "Id", "StartTime", vm[0].ScreeningId);
+            return View(seats);
         }
 
         // GET: Screenings/Create

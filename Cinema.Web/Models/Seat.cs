@@ -13,7 +13,6 @@ namespace Cinema.Web.Models
         [Required]
         public virtual Screening Screening { get; set; }
 
-
         [Required]
         public Int32 Row { get; set; }
 

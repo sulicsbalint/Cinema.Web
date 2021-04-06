@@ -1,0 +1,68 @@
+﻿@model List<Cinema.Web.Models.Seat>
+
+@{
+    ViewData["Title"] = "Reserve";
+}
+
+<h1>Reserve</h1>
+
+<h4>Seat</h4>
+
+@*<div class="row">
+        <div class="col-md-4">
+            <form asp-action="Reserve" asp-route-vm="@Model">
+                @foreach (Seat item in Model)
+                {
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="@item.Id" />
+                    <div class="form-group">
+                        <label asp-for="@item.ScreeningId" class="control-label"></label>
+                        <select asp-for="@item.ScreeningId" class="form-control" asp-items="ViewBag.Screenings"></select>
+                        <span asp-validation-for="@item.ScreeningId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@item.Row" class="control-label"></label>
+                        <input asp-for="@item.Row" class="form-control" />
+                        <span asp-validation-for="@item.Row" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@item.Column" class="control-label"></label>
+                        <input asp-for="@item.Column" class="form-control" />
+                        <span asp-validation-for="@item.Column" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@item.Status" class="control-label"></label>
+                        <input asp-for="@item.Status" class="form-control" />
+                        <span asp-validation-for="@item.Status" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@item.ReserverName" class="control-label"></label>
+                        <input asp-for="@item.ReserverName" class="form-control" />
+                        <span asp-validation-for="@item.ReserverName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@item.ReserverPhone" class="control-label"></label>
+                        <input asp-for="@item.ReserverPhone" class="form-control" />
+                        <span asp-validation-for="@item.ReserverPhone" class="text-danger"></span>
+                    </div>
+                }
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>*@
+
+@for (int i = 0; i < 6; i++)
+{
+    var str = i.ToString();
+    @Html.CheckBox("id"+i , false)
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

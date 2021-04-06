@@ -5,15 +5,15 @@ namespace Cinema.Web.Services
 {
     public interface ICinemaService
     {
-        public List<Movie> GetMovies(string title = null);
-        public Movie GetMovieById(int id);
-        public List<Screening> GetScreenings();
-        /*public Screening GetScreeningById(int id);*/
-        public List<Screening> GetTodaysScreenings();
-        public List<Screening> GetScreeningsByMovieId(int id);
-        /*public Room GetRoomByScreeningId(int id);
-        public bool UpdateScreening(Screening screening);
-        public bool UpdateSeats(List<Seat> seats);
-        public bool UpdateRoom(Room room);*/
+        List<Movie> GetMovies(string title = null);
+        Movie GetMovieById(int id);
+        List<Screening> GetScreenings();
+        Screening GetScreeningById(int id);
+        List<Screening> GetTodaysScreenings();
+        List<Screening> GetScreeningsByMovieId(int id);
+        List<Room> GetRooms();
+        List<Seat> GetSeatsByScreeningId(int id);
+        bool UpdateScreening(Screening screening);
+        bool UpdateSeats(List<Seat> seats);
     }
 }
