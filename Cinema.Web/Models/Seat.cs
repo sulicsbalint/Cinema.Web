@@ -24,6 +24,6 @@ namespace Cinema.Web.Models
 
         public String ReserverName { get; set; }
 
-        public Int32? ReserverPhone { get; set; }
+        public String ReserverPhone { get; set; }
     }
 }
