@@ -24,12 +24,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReserverName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReserverPhone)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -47,12 +41,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReserverName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReserverPhone)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
