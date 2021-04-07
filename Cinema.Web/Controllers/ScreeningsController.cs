@@ -57,31 +57,45 @@ namespace Cinema.Web.Controllers
             }
 
             var seats = _service.GetSeatsByScreeningId((int)id);
+            seats.Id = (int)id;
 
             if (seats == null)
             {
                 return NotFound();
             }
 
-            ViewBag.Screenings = new SelectList(_service.GetScreenings(), "Id", "StartTime", seats[0].ScreeningId);
             return View(seats);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Reserve(int id, List<SeatViewModel> vm)
+        public IActionResult Reserve(int id, BookViewModel vm)
         {
-            Debug.WriteLine("Screening id: " + id + " ViewModelHossza: " + vm.Count);
-            if (id != vm.ElementAt(0).ScreeningId)
+            /*if (id != vm.ElementAt(0).ScreeningId)
             {
                 return NotFound();
             }
 
-            List<Seat> seats = new List<Seat>();
-            
-            foreach (Seat item in vm)
+            List<Seat> seats = new List<Seat>();*/
+
+            /*foreach (Seat item in vm)
             {
                 seats.Add((Seat)item);
+            }*/
+
+            List<Seat> seats = new List<Seat>();
+            List<Seat> vmSeats = new List<Seat>();
+            vmSeats = _service.GetSeatsByScreeningId(id).Seats;
+            for (int i = 0; i < 6; i++)
+            {
+                var tmp = "id" + i;
+                if (Request.Form[tmp].Count == 2)
+                {
+                    //vmSeats[i].ReserverName = Request.Form["Name"];
+                    //vmSeats[i].ReserverPhone = Request.Form["Phone"];
+                    vmSeats[i].Status = 1;
+                    seats.Add(vmSeats[i]);
+                }
             }
 
             if (ModelState.IsValid)
@@ -90,125 +104,7 @@ namespace Cinema.Web.Controllers
                 return RedirectToAction("Index", "Screenings");
             }
 
-            ViewBag.Screenings = new SelectList(_service.GetScreenings(), "Id", "StartTime", vm[0].ScreeningId);
-            return View(seats);
-        }
-
-        // GET: Screenings/Create
-        public IActionResult Create()
-        {
-            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Description");
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
-            return View();
-        }
-
-        // POST: Screenings/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MovieId,StartTime,RoomId")] Screening screening)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(screening);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Description", screening.MovieId);
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", screening.RoomId);
-            return View(screening);
-        }
-
-        // GET: Screenings/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var screening = await _context.Screenings.FindAsync(id);
-            if (screening == null)
-            {
-                return NotFound();
-            }
-            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Description", screening.MovieId);
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", screening.RoomId);
-            return View(screening);
-        }
-
-        // POST: Screenings/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MovieId,StartTime,RoomId")] Screening screening)
-        {
-            if (id != screening.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(screening);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ScreeningExists(screening.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Description", screening.MovieId);
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", screening.RoomId);
-            return View(screening);
-        }
-
-        // GET: Screenings/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var screening = await _context.Screenings
-                .Include(s => s.Movie)
-                .Include(s => s.Room)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (screening == null)
-            {
-                return NotFound();
-            }
-
-            return View(screening);
-        }
-
-        // POST: Screenings/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var screening = await _context.Screenings.FindAsync(id);
-            _context.Screenings.Remove(screening);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool ScreeningExists(int id)
-        {
-            return _context.Screenings.Any(e => e.Id == id);
+            return View(vm.Seats);
         }
     }
 }

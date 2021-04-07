@@ -38,15 +38,6 @@ namespace Cinema.Web.Services
                 .ToList();
         }
 
-        public Screening GetScreeningById(int id)
-        {
-            return _context.Screenings
-                .Include(s => s.Room)
-                .Include(s => s.Movie)
-                .Include(s => s.Seats)
-                .FirstOrDefault(m => m.Id == id);
-        }
-
         public List<Screening> GetTodaysScreenings()
         {
             return _context.Screenings
@@ -62,36 +53,22 @@ namespace Cinema.Web.Services
                 .ToList();
         }
 
-        public List<Room> GetRooms()
+        public BookViewModel GetSeatsByScreeningId(int id)
         {
-            return _context.Rooms
-                .ToList();
-        }
+            var screening = _context.Screenings
+                .Include(s => s.Room)
+                .FirstOrDefault(s => s.Id == id);
 
-        public List<Seat> GetSeatsByScreeningId(int id)
-        {
-            return _context.Seats
-                .Where(s => s.ScreeningId == id)
-                .ToList();
-        }
+            BookViewModel vm = new BookViewModel
+            {
+                Seats = _context.Seats
+                    .Where(s => s.ScreeningId == id)
+                    .ToList(),
+                Rows = screening.Room.Rows,
+                Columns = screening.Room.Columns
+            };
 
-        public bool UpdateScreening(Screening screening)
-        {
-            try
-            {
-                _context.Update(screening);
-                _context.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return false;
-            }
-            catch (DbUpdateException)
-            {
-                return false;
-            }
-
-            return true;
+            return vm;
         }
 
         public bool UpdateSeats(List<Seat> seats)
