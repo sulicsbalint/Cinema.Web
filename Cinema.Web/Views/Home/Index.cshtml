@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" href="~/css/homepage.css" />
 
-<h1 style="color: white">Legújabb filmek</h1>
+<h1>Legújabb filmek</h1>
 
 <div class="cont">
     @for (var i = 0; i < 5; i++)
@@ -20,7 +20,7 @@
     }
 </div>
 
-<h1 style="color: white">Mai vetítések</h1>
+<h1>Mai vetítések</h1>
 
 @if (ViewBag.Today.Count != 0)
 {
@@ -44,5 +44,5 @@
 }
 else
 {
-    <span style="color: white;">Nincs ma vetítés</span>
+    <span>Nincs ma vetítés</span>
 }
