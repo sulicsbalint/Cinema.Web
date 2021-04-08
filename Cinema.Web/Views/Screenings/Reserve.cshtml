@@ -7,10 +7,12 @@
 <style>
     body {
         background-color: black;
+        color: white;
     }
 
     .seat_container {
-        width: 50%;
+        width: 55%;
+        padding: 0px 40px;
         margin: auto;
     }
 
@@ -28,7 +30,7 @@
         height: 50px;
         border-radius: 8px;
         background-color: red;
-        margin: 25px;
+        margin: 20px;
         float: left;
     }
 
@@ -37,73 +39,72 @@
         height: 50px;
         border-radius: 8px;
         background-color: orange;
-        margin: 25px;
+        margin: 20px;
         float: left;
+    }
+
+    form-middle {
+        margin: auto;
+        width: 50%;
+        border: dashed;
+        border-color: red;
     }
 </style>
 
-<h1>Reserve</h1>
+<h1>Helyfoglalás</h1>
 
-<h4>Seat</h4>
+<h4>@Model.RoomName</h4>
 
 <div class="seat_container">
-    @for (int i = 0; i < Model.Rows; i++)
-    {
-        <div class="row">
-            @for (int j = 0; j < Model.Columns; j++)
+    <div class="row">
+        @for (int i = 0; i < Model.Rows * Model.Columns; i++)
+        {
+            @if (Model.Seats.ElementAt(i).Status == 0)
             {
-                @if (Model.Seats.ElementAt(i * Model.Columns + j).Status == 0)
-                {
-                    <div class="seat-free" id="seat @i @j" onclick="reserve('seat @i @j', 'id @i@j')"></div>
-                }
-                else
-                {
-                    <div class="seat-booked" id="seat @i @j" onclick="reserve('seat @i @j', 'id @i@j')"></div>
-                }
+                <div class="seat-free" id="seat @i" onclick="reserve('seat @i', 'id @i')"></div>
             }
-        </div>
-    }
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Reserve" asp-route-id="@Model.Id"> 
-            @for (int i = 0; i < Model.Rows; i++)
+            else
             {
-                @for (int j = 0; j < Model.Columns; j++)
-                {
-                    @if (Model.Seats.ElementAt(i* Model.Columns+j).Status != 0)
-                    {
-                        @Html.CheckBox("id" + i + j, true)
-                    }
-                    else
-                    {
-                        @Html.CheckBox("id" + i + j, false)
-                    }
-                }
+                <div class="seat-booked" id="seat @i" onclick="reserve('seat @i', 'id @i')"></div>
             }
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="@Model.Name" class="control-label"></label>
-                <input asp-for="@Model.Name" class="form-control" />
-                <span asp-validation-for="@Model.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Phone" class="control-label"></label>
-                <input asp-for="@Model.Phone" class="form-control" />
-                <span asp-validation-for="@Model.Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        }
     </div>
 </div>
 
-
-
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="form-middle">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Reserve" asp-route-id="@Model.Id" asp-route-rows="@Model.Rows"  asp-route-cols="@Model.Columns">
+                <div class="invisible">
+                    @for (int i = 0; i < Model.Rows * Model.Columns; i++)
+                    {
+                        @if (Model.Seats.ElementAt(i).Status == 0)
+                        {
+                            @Html.CheckBox("id" + i, false)
+                        }
+                        else
+                        {
+                            @Html.CheckBox("id" + i, true)
+                        }
+                    }
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.Name" class="control-label">Név</label>
+                    <input asp-for="@Model.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Phone" class="control-label">Telefonszám</label>
+                    <input asp-for="@Model.Phone" class="form-control" />
+                    <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Foglalás" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -111,19 +112,17 @@
 }
 
 <script>
-    function reserve(i, j) {
-        var str = ' ' + j
+    function reserve(_seat, checkb) {
+        var str = ' ' + checkb
         str = str.replace(/\s/g, '')
 
         var checkbox = document.getElementById(str)
-        var seat = document.getElementById(i)
+        var seat = document.getElementById(_seat)
 
         var ctr = 0
-        for (var i = 0; i < 2; i++) {
-            for (var j = 0; j < 3; j++) {
-                if (document.getElementById('id' + i + j).checked && document.getElementById("seat "+i+" "+j).classList.contains("seat-selected")) {
-                    ctr++
-                }
+        for (var i = 0; i < 18; i++) {
+            if (document.getElementById('id' + i).checked && document.getElementById("seat "+i).classList.contains("seat-selected")) {
+                ctr++
             }
         }
 

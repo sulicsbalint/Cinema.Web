@@ -8,9 +8,11 @@ namespace Cinema.Web.Models
 
         public string Name { get; set; }
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         public int Id { get; set; }
+
+        public string RoomName { get; set; }
 
         public int Rows { get; set; }
 

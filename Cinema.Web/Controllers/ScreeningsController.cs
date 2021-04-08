@@ -51,48 +51,38 @@ namespace Cinema.Web.Controllers
 
         public IActionResult Reserve(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
+            var screening = _service.GetScreeningById((int)id);
             var seats = _service.GetSeatsByScreeningId((int)id);
-            seats.Id = (int)id;
+            if (seats == null || screening == null) return NotFound();
 
-            if (seats == null)
-            {
-                return NotFound();
-            }
+            seats.Id = (int)id;
+            seats.RoomName = screening.Room.Name;
+            seats.Rows = screening.Room.Rows;
+            seats.Columns = screening.Room.Columns;
 
             return View(seats);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Reserve(int id, BookViewModel vm)
+        public IActionResult Reserve(int id, int rows, int cols, BookViewModel vm)
         {
-            /*if (id != vm.ElementAt(0).ScreeningId)
+            if (id != vm.Id)
             {
                 return NotFound();
             }
 
-            List<Seat> seats = new List<Seat>();*/
-
-            /*foreach (Seat item in vm)
-            {
-                seats.Add((Seat)item);
-            }*/
-
             List<Seat> seats = new List<Seat>();
-            List<Seat> vmSeats = new List<Seat>();
-            vmSeats = _service.GetSeatsByScreeningId(id).Seats;
-            for (int i = 0; i < 6; i++)
+            List<Seat> vmSeats = _service.GetSeatsByScreeningId(id).Seats;
+            for (int i = 0; i < rows*cols; i++)
             {
                 var tmp = "id" + i;
-                if (Request.Form[tmp].Count == 2)
+                if (Request.Form[tmp].Count == 2 && vmSeats[i].Status != 1)
                 {
-                    //vmSeats[i].ReserverName = Request.Form["Name"];
-                    //vmSeats[i].ReserverPhone = Request.Form["Phone"];
+                    vmSeats[i].ReserverName = Request.Form["Name"];
+                    vmSeats[i].ReserverPhone = Request.Form["Phone"];
                     vmSeats[i].Status = 1;
                     seats.Add(vmSeats[i]);
                 }

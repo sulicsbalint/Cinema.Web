@@ -38,6 +38,13 @@ namespace Cinema.Web.Services
                 .ToList();
         }
 
+        public Screening GetScreeningById(int id)
+        {
+            return _context.Screenings
+                .Include(s => s.Room)
+                .FirstOrDefault(s => s.Id == id);
+        }
+
         public List<Screening> GetTodaysScreenings()
         {
             return _context.Screenings

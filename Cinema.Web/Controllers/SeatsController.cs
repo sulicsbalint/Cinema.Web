@@ -19,10 +19,10 @@ namespace Cinema.Web.Controllers
         }
 
         // GET: Seats
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var cinemaDbContext = _context.Seats.Include(s => s.Screening);
-            return View(await cinemaDbContext.ToListAsync());
+            return View(cinemaDbContext.ToList());
         }
 
         // GET: Seats/Details/5

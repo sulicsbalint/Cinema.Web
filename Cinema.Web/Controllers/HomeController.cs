@@ -1,28 +1,31 @@
 ﻿using Cinema.Web.Models;
 using Cinema.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace Cinema.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly ICinemaService _service;
 
-        public HomeController(ILogger<HomeController> logger, ICinemaService service)
+        public HomeController(ICinemaService service)
         {
             _service = service;
-            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            ViewBag.Movies = _service.GetMovies();
-            ViewBag.Screenings = _service.GetScreenings();
-            ViewBag.Today = _service.GetTodaysScreenings();
-            return View(_service.GetMovies());
+            var movies = _service.GetMovies();
+            var screenings = _service.GetScreenings();
+            var today = _service.GetTodaysScreenings();
+            if (movies == null || screenings == null || today == null) return NotFound();
+
+            ViewBag.Movies = movies;
+            ViewBag.Screenings = screenings;
+            ViewBag.Today = today;
+
+            return View(movies);
         }
 
         public IActionResult Privacy()

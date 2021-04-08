@@ -8,6 +8,7 @@ namespace Cinema.Web.Services
         List<Movie> GetMovies(string title = null);
         Movie GetMovieById(int id);
         List<Screening> GetScreenings();
+        Screening GetScreeningById(int id);
         List<Screening> GetTodaysScreenings();
         List<Screening> GetScreeningsByMovieId(int id);
         BookViewModel GetSeatsByScreeningId(int id);

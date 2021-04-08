@@ -44,7 +44,7 @@
             {
                 <li>
                     @item.StartTime.ToString("yyyy/MM/dd HH:mm")
-                    <a asp-controller="Screenings" asp-action="Details" asp-route-id="@item.Id">
+                    <a asp-controller="Screenings" asp-action="Reserve" asp-route-id="@item.Id">
                         <span>Foglalás</span>
                     </a>
                 </li>
