@@ -4,7 +4,12 @@
     ViewData["Title"] = "Helyfoglalás";
 }
 
-<link rel="stylesheet" href="~/css/book.css" />
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/book.css" />
+</environment>
+<environment exclude="Development">
+    <link rel="stylesheet" href="~/css/book.min.css" />
+</environment>
 
 <h1>Helyfoglalás</h1>
 

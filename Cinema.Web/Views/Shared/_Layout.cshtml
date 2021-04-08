@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Filmszínház - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/sites.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/sites.min.css" />
+    </environment>
 </head>
 <body>
     <header>
@@ -38,8 +43,8 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="background-color: white; height: 50px;">
-        <div class="container" style=" margin-top: 10px;">
+    <footer class="border-top footer text-muted">
+        <div class="container">
             &copy; 2021 - Sulics Bálint - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

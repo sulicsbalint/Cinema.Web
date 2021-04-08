@@ -4,7 +4,12 @@
     ViewData["Title"] = "Főoldal";
 }
 
-<link rel="stylesheet" href="~/css/homepage.css" />
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/homepage.css" />
+</environment>
+<environment exclude="Development">
+    <link rel="stylesheet" href="~/css/homepage.min.css" />
+</environment>
 
 <h1>Legújabb filmek</h1>
 

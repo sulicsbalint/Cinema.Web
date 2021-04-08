@@ -4,7 +4,12 @@
     ViewData["Title"] = "Műsor";
 }
 
-<link rel="stylesheet" href="~/css/movies.css" />
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/movies.css" />
+</environment>
+<environment exclude="Development">
+    <link rel="stylesheet" href="~/css/movies.min.css" />
+</environment>
 
 <h1>Filmszínház műsor</h1>
 

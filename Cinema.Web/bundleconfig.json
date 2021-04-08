@@ -1,0 +1,44 @@
+[
+	{
+		"outputFileName": "wwwroot/css/sites.min.css",
+		// An array of relative input file paths. Globbing patterns supported
+		"inputFiles": [
+			"wwwroot/css/sites.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/css/homepage.min.css",
+		// An array of relative input file paths. Globbing patterns supported
+		"inputFiles": [
+			"wwwroot/css/homepage.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/css/book.min.css",
+		// An array of relative input file paths. Globbing patterns supported
+		"inputFiles": [
+			"wwwroot/css/book.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/css/details.min.css",
+		// An array of relative input file paths. Globbing patterns supported
+		"inputFiles": [
+			"wwwroot/css/details.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/css/movies.min.css",
+		// An array of relative input file paths. Globbing patterns supported
+		"inputFiles": [
+			"wwwroot/css/movies.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/css/screenings.min.css",
+		// An array of relative input file paths. Globbing patterns supported
+		"inputFiles": [
+			"wwwroot/css/screenings.css"
+		]
+	}
+]

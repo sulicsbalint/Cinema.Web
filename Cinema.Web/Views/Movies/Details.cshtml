@@ -10,7 +10,12 @@
     }
 </style>
 
-<link rel="stylesheet" href="~/css/details.css" />
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/details.css" />
+</environment>
+<environment exclude="Development">
+    <link rel="stylesheet" href="~/css/details.min.css" />
+</environment>
 
 <div class="movie_card">
     <div class="movie_container">
