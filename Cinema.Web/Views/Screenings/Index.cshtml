@@ -1,25 +1,33 @@
 ﻿@model IEnumerable<Cinema.Web.Models.Screening>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vetítések";
 }
 
-<h1>Index</h1>
+<style>
+    body {
+        background-color: black;
+        color: white;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    .table {
+        color: white;
+    }
+</style>
+
+<h1>Vetítések</h1>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Movie)
+                Film
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartTime)
+                Kezdési időpont
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Room)
+                Terem
             </th>
             <th></th>
         </tr>
@@ -37,10 +45,7 @@
                 @Html.DisplayFor(modelItem => item.Room.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-action="Reserve" asp-route-id="@item.Id">Reserve</a>
+                <a asp-action="Reserve" asp-route-id="@item.Id">Foglalás</a>
             </td>
         </tr>
 }

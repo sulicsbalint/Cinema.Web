@@ -34,7 +34,7 @@
                     <div class="bo">
                         <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="bo">
                             <img src="@Url.Action("DisplayImage", "Movies", new { id = movie.Id })" />
-                            <span>@movie.Title - @item.StartTime.ToString("MM/dd/ hh:mm")</span>
+                            <span>@movie.Title - @item.StartTime.ToString("MM/dd/ HH:mm")</span>
                         </a>
                     </div>
                 }

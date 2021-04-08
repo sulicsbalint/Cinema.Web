@@ -4,139 +4,69 @@
     ViewData["Title"] = "Helyfoglalás";
 }
 
-<style>
-    body {
-        background-color: black;
-        color: white;
-    }
-
-    .seat_container {
-        width: 55%;
-        padding: 0px 40px;
-        margin: auto;
-    }
-
-    .seat-free {
-        width: 50px;
-        height: 50px;
-        border-radius: 8px;
-        background-color: green;
-        margin: 20px;
-        float: left;
-    }
-
-    .seat-booked {
-        width: 50px;
-        height: 50px;
-        border-radius: 8px;
-        background-color: red;
-        margin: 20px;
-        float: left;
-    }
-
-    .seat-selected {
-        width: 50px;
-        height: 50px;
-        border-radius: 8px;
-        background-color: orange;
-        margin: 20px;
-        float: left;
-    }
-
-    form-middle {
-        margin: auto;
-        width: 50%;
-        border: dashed;
-        border-color: red;
-    }
-</style>
+<link rel="stylesheet" href="~/css/book.css" />
 
 <h1>Helyfoglalás</h1>
 
-<h4>@Model.RoomName</h4>
+<h4>@Model.RoomName - @Model.StartTime.ToString("MM/dd/ HH:mm")</h4>
 
 <div class="seat_container">
-    <div class="row">
-        @for (int i = 0; i < Model.Rows * Model.Columns; i++)
-        {
-            @if (Model.Seats.ElementAt(i).Status == 0)
+    @for (int i = 0; i < Model.Rows; i++)
+    {
+        <div class="row">
+            <span class="row-id">S @i</span>
+            @for (int j = 0; j < Model.Columns; j++)
             {
-                <div class="seat-free" id="seat @i" onclick="reserve('seat @i', 'id @i')"></div>
+                @if (Model.Seats.ElementAt(i * Model.Columns + j).Status == 0)
+                {
+                    <div class="seat-free" id="seat @i @j" onclick="reserve('seat @i @j', 'id @i @j', @Model.Rows, @Model.Columns)"></div>
+                }
+                else
+                {
+                    <div class="seat-booked" id="seat @i @j" onclick="reserve('seat @i @j', 'id @i @j')"></div>
+                }
             }
-            else
-            {
-                <div class="seat-booked" id="seat @i" onclick="reserve('seat @i', 'id @i')"></div>
-            }
-        }
-    </div>
+        </div>
+    }
 </div>
 
-<div class="form-middle">
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Reserve" asp-route-id="@Model.Id" asp-route-rows="@Model.Rows"  asp-route-cols="@Model.Columns">
-                <div class="invisible">
-                    @for (int i = 0; i < Model.Rows * Model.Columns; i++)
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Reserve" asp-route-id="@Model.Id" asp-route-rows="@Model.Rows" asp-route-cols="@Model.Columns">
+            <div class="invisible">
+                @for (int i = 0; i < Model.Rows; i++)
+                {
+                    @for (int j = 0; j < Model.Columns; j++)
                     {
-                        @if (Model.Seats.ElementAt(i).Status == 0)
+                        @if (Model.Seats.ElementAt(i * Model.Columns + j).Status == 0)
                         {
-                            @Html.CheckBox("id" + i, false)
+                            @Html.CheckBox("id" + i + j, false)
                         }
                         else
                         {
-                            @Html.CheckBox("id" + i, true)
+                            @Html.CheckBox("id" + i + j, true)
                         }
                     }
-                </div>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="@Model.Name" class="control-label">Név</label>
-                    <input asp-for="@Model.Name" class="form-control" />
-                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.Phone" class="control-label">Telefonszám</label>
-                    <input asp-for="@Model.Phone" class="form-control" />
-                    <span asp-validation-for="@Model.Phone" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Foglalás" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
+                }
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Name" class="control-label">Név</label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Phone" class="control-label">Telefonszám</label>
+                <input asp-for="@Model.Phone" class="form-control" />
+                <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Foglalás" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-<script>
-    function reserve(_seat, checkb) {
-        var str = ' ' + checkb
-        str = str.replace(/\s/g, '')
-
-        var checkbox = document.getElementById(str)
-        var seat = document.getElementById(_seat)
-
-        var ctr = 0
-        for (var i = 0; i < 18; i++) {
-            if (document.getElementById('id' + i).checked && document.getElementById("seat "+i).classList.contains("seat-selected")) {
-                ctr++
-            }
-        }
-
-        console.log(ctr);
-        if (ctr == 6 && seat.classList.contains("seat-free")) return
-
-        if (seat.classList.contains("seat-free")) {
-            checkbox.checked = true
-            seat.classList.remove("seat-free")
-            seat.classList.add("seat-selected")
-        } else if (seat.classList.contains("seat-selected")) {
-            checkbox.checked = false
-            seat.classList.remove("seat-selected")
-            seat.classList.add("seat-free")
-        }
-    }
-</script>

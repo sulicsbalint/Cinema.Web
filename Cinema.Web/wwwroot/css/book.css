@@ -1,0 +1,41 @@
+﻿
+body {
+    background-color: black;
+    color: white;
+}
+
+.seat_container {
+    width: 100%;
+}
+
+.seat-free {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: green;
+    margin: 20px;
+    float: left;
+}
+
+.seat-booked {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: red;
+    margin: 20px;
+    float: left;
+}
+
+.seat-selected {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: orange;
+    margin: 20px;
+    float: left;
+}
+
+.row-id {
+    float: left;
+    margin: auto 10px;
+}

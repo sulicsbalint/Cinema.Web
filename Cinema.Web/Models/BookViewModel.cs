@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Cinema.Web.Models
 {
@@ -13,6 +14,8 @@ namespace Cinema.Web.Models
         public int Id { get; set; }
 
         public string RoomName { get; set; }
+
+        public DateTime StartTime { get; set; }
 
         public int Rows { get; set; }
 
