@@ -4,48 +4,30 @@
     ViewData["Title"] = "Vetítések";
 }
 
-<style>
-    body {
-        background-color: black;
-        color: white;
-    }
-
-    .table {
-        color: white;
-    }
-</style>
+<link rel="stylesheet" href="~/css/screenings.css" />
 
 <h1>Vetítések</h1>
 
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                Film
-            </th>
-            <th>
-                Kezdési időpont
-            </th>
-            <th>
-                Terem
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="movie_tr" style="background-image: linear-gradient(to left, rgba(51, 51, 77, 0.1), rgba(0, 0, 0, 100%)), url( @Url.Action("DisplayCover", "Movies", new { id = item.Movie.Id }) );">
             <td>
-                @Html.DisplayFor(modelItem => item.Movie.Title)
+                <span class="title">@Html.DisplayFor(modelItem => item.Movie.Title)</span>
+                <p>@Html.DisplayFor(modelItem => item.StartTime)</p>
+                <p>@Html.DisplayFor(modelItem => item.Room.Name)</p>
+                <span>
+                    <a asp-action="Reserve" asp-route-id="@item.Id">Foglalás...</a>
+                </span>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
+                
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Room.Name)
+                
             </td>
             <td>
-                <a asp-action="Reserve" asp-route-id="@item.Id">Foglalás</a>
+                
             </td>
         </tr>
 }

@@ -1,0 +1,16 @@
+﻿body {
+    background-color: black;
+    color: white;
+}
+
+.table {
+    color: white;
+}
+
+.movie-tr {
+    height: 100px;
+}
+
+.title {
+    font-size: 40px;
+}

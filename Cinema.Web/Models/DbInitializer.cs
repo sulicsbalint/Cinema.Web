@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cinema.Web.Models
 {
@@ -13,8 +12,7 @@ namespace Cinema.Web.Models
         {
             context.Database.Migrate();
 
-            if (context.Movies.Any())
-                return;
+            if (context.Movies.Any()) return;
 
             var tenetPath = Path.Combine(imageDirectory, "tenet.jpg");
             var path1917 = Path.Combine(imageDirectory, "1917.jpg");
@@ -34,7 +32,7 @@ namespace Cinema.Web.Models
             {
                 new Screening
                 {
-                    StartTime = DateTime.Now.AddDays(5),
+                    StartTime = DateTime.Now.AddDays(1),
                     Seats = new List<Seat>
                     {
                         new Seat
@@ -291,6 +289,24 @@ namespace Cinema.Web.Models
                         },
                         new Seat
                         {
+                            Row = 1,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
                             Row = 2,
                             Column = 1,
                             Status = 0
@@ -306,13 +322,63 @@ namespace Cinema.Web.Models
                             Row = 2,
                             Column = 3,
                             Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 1,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 2,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 6,
+                            Status = 0
                         }
                     }
-                }
-            };
-
-            List<Screening> rushScreenings = new List<Screening>
-            {
+                },
                 new Screening
                 {
                     StartTime = DateTime.Now.AddDays(2),
@@ -338,6 +404,24 @@ namespace Cinema.Web.Models
                         },
                         new Seat
                         {
+                            Row = 1,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
                             Row = 2,
                             Column = 1,
                             Status = 0
@@ -352,6 +436,179 @@ namespace Cinema.Web.Models
                         {
                             Row = 2,
                             Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 1,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 2,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 6,
+                            Status = 0
+                        }
+                    }
+                }
+            };
+
+            List<Screening> rushScreenings = new List<Screening>
+            {
+                new Screening
+                {
+                    StartTime = DateTime.Now.AddDays(3),
+                    Seats = new List<Seat>
+                    {
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 1,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 2,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 1,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 2,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 1,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 2,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 6,
                             Status = 0
                         }
                     }
@@ -385,6 +642,24 @@ namespace Cinema.Web.Models
                         },
                         new Seat
                         {
+                            Row = 1,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
                             Row = 2,
                             Column = 1,
                             Status = 0
@@ -399,6 +674,60 @@ namespace Cinema.Web.Models
                         {
                             Row = 2,
                             Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 1,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 2,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 6,
                             Status = 0
                         }
                     }
@@ -432,6 +761,24 @@ namespace Cinema.Web.Models
                         },
                         new Seat
                         {
+                            Row = 1,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
                             Row = 2,
                             Column = 1,
                             Status = 0
@@ -447,6 +794,60 @@ namespace Cinema.Web.Models
                             Row = 2,
                             Column = 3,
                             Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 1,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 2,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 6,
+                            Status = 0
                         }
                     }
                 }
@@ -456,7 +857,7 @@ namespace Cinema.Web.Models
             {
                 new Screening
                 {
-                    StartTime = DateTime.Now,
+                    StartTime = DateTime.Now.AddDays(3),
                     Seats = new List<Seat>
                     {
                         new Seat
@@ -479,6 +880,24 @@ namespace Cinema.Web.Models
                         },
                         new Seat
                         {
+                            Row = 1,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 1,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
                             Row = 2,
                             Column = 1,
                             Status = 0
@@ -493,6 +912,60 @@ namespace Cinema.Web.Models
                         {
                             Row = 2,
                             Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 2,
+                            Column = 6,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 1,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 2,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 3,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 4,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 5,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Row = 3,
+                            Column = 6,
                             Status = 0
                         }
                     }
@@ -587,36 +1060,36 @@ namespace Cinema.Web.Models
                 new Room
                 {
                     Name = "Terem 2",
-                    Rows = 2,
-                    Columns = 3,
+                    Rows = 3,
+                    Columns = 6,
                     Screenings = screenings1917
                 },
                 new Room
                 {
                     Name = "Terem 3",
-                    Rows = 2,
-                    Columns = 3,
+                    Rows = 3,
+                    Columns = 6,
                     Screenings = rushScreenings
                 },
                 new Room
                 {
                     Name = "Terem 4",
-                    Rows = 2,
-                    Columns = 3,
+                    Rows = 3,
+                    Columns = 6,
                     Screenings = viceScreenings
                 },
                 new Room
                 {
                     Name = "Terem 5",
-                    Rows = 2,
-                    Columns = 3,
+                    Rows = 3, 
+                    Columns = 6,
                     Screenings = johnWickScreenings
                 },
                 new Room
                 {
                     Name = "Terem 6",
-                    Rows = 2,
-                    Columns = 3,
+                    Rows = 3, 
+                    Columns = 6,
                     Screenings = cherryScreenings
                 }
             };
