@@ -19,7 +19,7 @@ namespace Cinema.Web.Services
         {
             return _context.Movies
                 .Where(m => m.Title.Contains(title ?? ""))
-                .OrderBy(m => m.Added)
+                .OrderByDescending(m => m.Added)
                 .ToList();
         }
 

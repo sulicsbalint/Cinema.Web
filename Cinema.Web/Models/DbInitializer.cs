@@ -976,11 +976,23 @@ namespace Cinema.Web.Models
             {
                 new Movie
                 {
+                    Title = "Cherry",
+                    Director = "Athony Russo",
+                    Star = "Tom Holland",
+                    Duration = 142,
+                    Description = "Cherry (Tom Holland) kimarad a főiskoláról, majd az élet a hadseregbe sodorja, ahol szanitéc lesz Irakban – ezalatt egyetlen támasza igaz szerelme, Emily (Ciara Bravo). A háborúból visszatérve a poszttraumás stressz nyomása alatt élete a drogok és a bűnözés spiráljába kerül, miközben azért küzd, hogy megtalálja helyét a világban.",
+                    Added = DateTime.Now,
+                    Image = File.Exists(cherryPath) ? File.ReadAllBytes(cherryPath) : null,
+                    Cover = File.Exists(cherryCover) ? File.ReadAllBytes(cherryCover) : null,
+                    Screenings = cherryScreenings
+                },
+                new Movie
+                {
                     Title = "Tenet",
                     Director = "Christopher Nolan",
                     Star = "John David Washington",
                     Duration = 150,
-                    Description = "Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
+                    Description = "A legsikeresebb Batman-trilógia és az Eredet rendezője, Christopher Nolan ismét különlegesen egyedi, izgalmas és meghökkentő fordulatokban gazdag thrillert rendezett, amelyen egy angol kémnek kellene megmentenie a Földet a rá leselkedő és pusztulással fenyegető katasztrófától. Ám a szuperügynöknek nemcsak az idegen hatalmak embereivel, hanem a legnagyobb ellenséggel, az Idővel is meg kell küzdenie.",
                     Added = DateTime.Now,
                     Image = File.Exists(tenetPath) ? File.ReadAllBytes(tenetPath) : null,
                     Cover = File.Exists(tenetCover) ? File.ReadAllBytes(tenetCover) : null,
@@ -992,7 +1004,7 @@ namespace Cinema.Web.Models
                     Director = "Sam Mendes",
                     Star = "Dean-Charles Chapman",
                     Duration = 119,
-                    Description = "April 6th, 1917. As a regiment assembles to wage war deep in enemy territory, two soldiers are assigned to race against time and deliver a message that will stop 1,600 men from walking straight into a deadly trap.",
+                    Description = "Javában zajlik az I. világháború, amikor két fiatal brit katonát egy lehetetlennek tűnő küldetéssel bíznak meg: az ellenséges vonalon kell áthatolniuk, hogy egy üzenetet kézbesítsenek bajtársaiknak. Egy napjuk van, hogy célhoz érjenek, különben 1600 társuk, köztük egyikük testvére is odavész. A két bátor harcos hihetetlen elszántsággal indul neki a német frontnak…",
                     Added = DateTime.Now,
                     Image = File.Exists(path1917) ? File.ReadAllBytes(path1917) : null,
                     Cover = File.Exists(cover1917) ? File.ReadAllBytes(cover1917) : null,
@@ -1004,7 +1016,7 @@ namespace Cinema.Web.Models
                     Director = "Ron Howard",
                     Star = "Daniel Brühl",
                     Duration = 123,
-                    Description = "The merciless 1970s rivalry between Formula One rivals James Hunt and Niki Lauda.",
+                    Description = "1976 - a Forma 1 aranykora, a hihetetlenül izgalmas, és látványos száguldó cirkusz legendás szezonja, két felejthetetlen versenyző harcával: James Hunt, a vagány brit pilóta, a Forma 1 rocksztárja, és Niki Lauda, az osztrák fegyelmezett zseni, az 1975-ös világbajnok néz egymással farkasszemet a világ legveszélyesebb pályáin. Igazi ellenfelek, akik bármire képesek a győzelemért.",
                     Added = DateTime.Now,
                     Image = File.Exists(rushPath) ? File.ReadAllBytes(rushPath) : null,
                     Cover = File.Exists(rushCover) ? File.ReadAllBytes(rushCover) : null,
@@ -1016,7 +1028,7 @@ namespace Cinema.Web.Models
                     Director = "Adam Mckay",
                     Star = "Christian Bale",
                     Duration = 132,
-                    Description = "The story of Dick Cheney, an unassuming bureaucratic Washington insider, who quietly wielded immense power as Vice President to George W. Bush, reshaping the country and the globe in ways that we still feel today.",
+                    Description = "Cheney fél évszázadot felölelő útja során wyomingi elektronikai munkásból az Egyesült Államok de facto elnöke lesz ebben a sötét humorú és gyakran nyugtalanító bepillantásban a szervezeti hatalommal való (vissza)élésbe. McKay értő kezei közt a Cheney-t övező kettősség, mint elhivatott családapa és politikai bábjátékos, bensőségességgel, szellemességgel és merész narratívával találkozik.",
                     Added = DateTime.Now,
                     Image = File.Exists(vicePath) ? File.ReadAllBytes(vicePath) : null,
                     Cover = File.Exists(viceCover) ? File.ReadAllBytes(viceCover) : null,
@@ -1028,23 +1040,11 @@ namespace Cinema.Web.Models
                     Director = "Chad Stahelski",
                     Star = "Keanu Reeves",
                     Duration = 101,
-                    Description = "An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him.",
+                    Description = "John Wick (Keanu Reeves) nyugodt életre vágyik. Magányosan akarja tölteni a napjait: kutyája, sportkocsija, üres, hideg lakása éppen elég neki - nincs szüksége többre. De egy nyugdíjas bérgyilkos nem pihenhet. És amikor bántják, ő sem marad tétlen. Előveszi rég elrejtett fegyvereit, és elindul véres bosszúhadjáratára. Egyetlen ember harcol gengszterek és bérgyilkosok egész hadserege ellen, New York pedig valódi csatatérré válik.",
                     Added = DateTime.Now,
                     Image = File.Exists(johnPath) ? File.ReadAllBytes(johnPath) : null,
                     Cover = File.Exists(johnCover) ? File.ReadAllBytes(johnCover) : null,
                     Screenings = johnWickScreenings
-                },
-                new Movie
-                {
-                    Title = "Cherry",
-                    Director = "Athony Russo",
-                    Star = "Tom Holland",
-                    Duration = 142,
-                    Description = "An Army medic suffering from post-traumatic stress disorder becomes a serial bank robber after an addiction to drugs puts him in debt.",
-                    Added = DateTime.Now,
-                    Image = File.Exists(cherryPath) ? File.ReadAllBytes(cherryPath) : null,
-                    Cover = File.Exists(cherryCover) ? File.ReadAllBytes(cherryCover) : null,
-                    Screenings = cherryScreenings
                 }
             };
 
