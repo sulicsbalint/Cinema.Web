@@ -35,6 +35,11 @@
     }
 </div>
 
+@if (Model.NoSeat == true)
+{
+    <div class="text-danger">Hely megadása kötelező.</div>
+}
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Reserve" asp-route-id="@Model.Id" asp-route-rows="@Model.Rows" asp-route-cols="@Model.Columns" asp-route-rname="@Model.RoomName" asp-route-time="@Model.StartTime">

@@ -26,5 +26,7 @@ namespace Cinema.Web.Models
         public int Rows { get; set; }
 
         public int Columns { get; set; }
+
+        public bool NoSeat { get; set; }
     }
 }

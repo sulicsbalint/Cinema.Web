@@ -82,6 +82,7 @@ namespace Cinema.Web.Controllers
             vm.Seats = vmSeats;
             vm.StartTime = time;
             vm.RoomName = rname;
+            vm.NoSeat = true;
 
             return View(vm);
         }
