@@ -2,6 +2,7 @@
 using Cinema.Web.Models;
 using Cinema.Web.Services;
 using System.Collections.Generic;
+using System;
 
 namespace Cinema.Web.Controllers
 {
@@ -42,7 +43,7 @@ namespace Cinema.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Reserve(int id, int rows, int cols, BookViewModel vm)
+        public IActionResult Reserve(int id, int rows, int cols, string rname, DateTime time, BookViewModel vm)
         {
             if (id != vm.Id)
             {
@@ -51,6 +52,7 @@ namespace Cinema.Web.Controllers
 
             List<Seat> seats = new List<Seat>();
             List<Seat> vmSeats = _service.GetSeatsByScreeningId(id).Seats;
+            int ctr = 0;
 
             for (int i = 0; i < rows; i++)
             {
@@ -59,6 +61,7 @@ namespace Cinema.Web.Controllers
                     var tmp = "id" + i + j;
                     if (Request.Form[tmp].Count == 2 && vmSeats[i*cols+j].Status != 1)
                     {
+                        ctr++;
                         vmSeats[i * cols + j].ReserverName = Request.Form["Name"];
                         vmSeats[i * cols + j].ReserverPhone = Request.Form["Phone"];
                         vmSeats[i * cols + j].Status = 1;
@@ -67,13 +70,20 @@ namespace Cinema.Web.Controllers
                 }
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && ctr != 0)
             {
                 _service.UpdateSeats(seats);
-                return RedirectToAction("Index", "Screenings");
+                return RedirectToAction("Index", "Home");
             }
 
-            return View(vm.Seats);
+            vm.Id = id;
+            vm.Rows = rows;
+            vm.Columns = cols;
+            vm.Seats = vmSeats;
+            vm.StartTime = time;
+            vm.RoomName = rname;
+
+            return View(vm);
         }
     }
 }
