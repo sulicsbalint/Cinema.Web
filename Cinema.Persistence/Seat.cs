@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Cinema.Web.Models
+namespace Cinema.Persistence
 {
     public class Seat
     {

@@ -1,4 +1,4 @@
-﻿namespace Cinema.Web.Models
+﻿namespace Cinema.Persistence
 {
     public enum DbType
     {

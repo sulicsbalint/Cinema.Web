@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Cinema.Web.Services;
+using Cinema.Persistence.Services;
 
 namespace Cinema.Web.Controllers
 {
