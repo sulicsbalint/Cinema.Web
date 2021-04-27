@@ -1,7 +1,7 @@
-﻿using Cinema.Web.Models;
+﻿using Cinema.Persistence;
 using System.Collections.Generic;
 
-namespace Cinema.Web.Services
+namespace Cinema.Persistence.Services
 {
     public interface ICinemaService
     {

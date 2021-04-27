@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Cinema.Web.Models
+namespace Cinema.Persistence
 {
     public static class DbInitializer
     {
         public static void Initialize(CinemaDbContext context, string imageDirectory)
         {
-            context.Database.Migrate();
+            //context.Database.Migrate();
+
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
 
             //context.Database.EnsureDeleted();
             //context.Database.EnsureCreated();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Cinema.Web.Models;
-using Cinema.Web.Services;
+using Cinema.Persistence;
+using Cinema.Persistence.Services;
 using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Authorization;

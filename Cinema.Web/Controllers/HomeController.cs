@@ -1,5 +1,5 @@
-﻿using Cinema.Web.Models;
-using Cinema.Web.Services;
+﻿using Cinema.Persistence;
+using Cinema.Persistence.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
