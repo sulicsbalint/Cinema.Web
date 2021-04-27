@@ -3,6 +3,7 @@ using Cinema.Web.Models;
 using Cinema.Web.Services;
 using System.Collections.Generic;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema.Web.Controllers
 {
