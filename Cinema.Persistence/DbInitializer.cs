@@ -12,6 +12,9 @@ namespace Cinema.Persistence
         {
             //context.Database.Migrate();
 
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+
             if (context.Movies.Any()) return;
 
             var tenetPath = Path.Combine(imageDirectory, "tenet.jpg");
