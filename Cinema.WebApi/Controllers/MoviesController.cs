@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Cinema.Persistence;
 using Cinema.Persistence.Services;
+using Cinema.Persistence.DTO;
+using System.Linq;
 
 namespace Cinema.WebApi.Controllers
 {
@@ -23,9 +19,9 @@ namespace Cinema.WebApi.Controllers
 
         // GET: api/Movies
         [HttpGet]
-        public ActionResult<IEnumerable<Movie>> GetMovies()
+        public ActionResult<IEnumerable<MovieDto>> GetMovies()
         {
-            return _service.GetMovies();
+            return _service.GetMovies().Select(movie => (MovieDto)movie).ToList();
         }
 
         /*// GET: api/Movies/5

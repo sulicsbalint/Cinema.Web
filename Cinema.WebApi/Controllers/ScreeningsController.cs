@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cinema.Persistence.DTO;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Cinema.Persistence;
 using Cinema.Persistence.Services;
 
 namespace Cinema.WebApi.Controllers
@@ -23,13 +20,13 @@ namespace Cinema.WebApi.Controllers
 
         // GET: api/Screenings/5
         [HttpGet("{movieId}")]
-        public ActionResult<IEnumerable<Screening>> GetScreenings(int movieId)
+        public ActionResult<IEnumerable<ScreeningDto>> GetScreenings(int movieId)
         {
             try
             {
                 return _service
                     .GetMovieById(movieId)
-                    .Screenings.ToList();
+                    .Screenings.Select(screening => (ScreeningDto)screening).ToList();
             }
             catch (Exception)
             {
