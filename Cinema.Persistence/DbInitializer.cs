@@ -15,6 +15,9 @@ namespace Cinema.Persistence
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
+            //context.Database.EnsureDeleted();
+            //context.Database.EnsureCreated();
+
             if (context.Movies.Any()) return;
 
             var tenetPath = Path.Combine(imageDirectory, "tenet.jpg");
