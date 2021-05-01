@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Cinema.Persistence.Migrations
+namespace Cinema.Web.Migrations
 {
     public partial class Tables : Migration
     {

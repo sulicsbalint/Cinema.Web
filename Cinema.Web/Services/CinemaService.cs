@@ -1,10 +1,10 @@
-﻿using Cinema.Persistence;
+﻿using Cinema.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cinema.Persistence.Services
+namespace Cinema.Web.Services
 {
     public class CinemaService : ICinemaService
     {

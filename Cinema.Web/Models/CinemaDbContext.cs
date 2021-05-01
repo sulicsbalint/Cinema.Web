@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cinema.Persistence
+namespace Cinema.Web.Models
 {
     public class CinemaDbContext : IdentityDbContext<ApplicationUser>
     {

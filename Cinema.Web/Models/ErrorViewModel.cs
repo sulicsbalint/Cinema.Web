@@ -1,6 +1,6 @@
 using System;
 
-namespace Cinema.Persistence
+namespace Cinema.Web.Models
 {
     public class ErrorViewModel
     {

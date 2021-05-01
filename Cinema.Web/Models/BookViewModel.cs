@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Cinema.Persistence
+namespace Cinema.Web.Models
 {
     public class BookViewModel
     {

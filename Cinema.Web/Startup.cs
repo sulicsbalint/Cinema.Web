@@ -1,5 +1,5 @@
-using Cinema.Persistence;
-using Cinema.Persistence.Services;
+using Cinema.Web.Models;
+using Cinema.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
