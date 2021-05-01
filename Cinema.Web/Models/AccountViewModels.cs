@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cinema.Web.Models
+namespace Cinema.Persistence
 {
     public class LoginViewModel
     {

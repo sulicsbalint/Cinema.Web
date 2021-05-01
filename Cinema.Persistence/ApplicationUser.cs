@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Cinema.Web.Models
+namespace Cinema.Persistence
 {
     public class ApplicationUser : IdentityUser
     {

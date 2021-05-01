@@ -1,4 +1,4 @@
-﻿using Cinema.Web.Models;
+﻿using Cinema.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
