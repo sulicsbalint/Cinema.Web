@@ -3,7 +3,6 @@ using Cinema.Persistence;
 using Cinema.Persistence.Services;
 using System.Collections.Generic;
 using System;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema.Web.Controllers
 {

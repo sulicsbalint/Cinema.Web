@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Cinema.Web.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema.Web.Controllers
 {
