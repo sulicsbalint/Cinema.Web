@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Cinema.Persistence.Services;
 using Microsoft.AspNetCore.Http;
 using Cinema.Persistence;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema.WebApi.Controllers
 {
@@ -54,6 +55,7 @@ namespace Cinema.WebApi.Controllers
         // PUT: api/Screenings/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult PutScreening(int id, ScreeningDto screening)
         {
@@ -71,6 +73,7 @@ namespace Cinema.WebApi.Controllers
         // POST: api/Screenings
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize]
         [HttpPost]
         public ActionResult<ScreeningDto> PostScreening(ScreeningDto screeningDto)
         {
@@ -86,6 +89,7 @@ namespace Cinema.WebApi.Controllers
         }
 
         // DELETE: api/Screenings/5
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteScreening(int id)
         {

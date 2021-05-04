@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Web", "Cinema.Web\Cinema.Web.csproj", "{52697245-122C-4DA2-B507-B7144AEB4743}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Persistence", "Cinema.Persistence\Cinema.Persistence.csproj", "{E482A456-2140-49EF-B599-D98A9E3F2D7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Persistence", "Cinema.Persistence\Cinema.Persistence.csproj", "{E482A456-2140-49EF-B599-D98A9E3F2D7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.WebApi", "Cinema.WebApi\Cinema.WebApi.csproj", "{EB43E3E8-E5D6-4663-9F63-C83B8AE9C6CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.WebApi", "Cinema.WebApi\Cinema.WebApi.csproj", "{EB43E3E8-E5D6-4663-9F63-C83B8AE9C6CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Desktop", "Cinema.Desktop\Cinema.Desktop.csproj", "{27F27BBE-64E5-4733-949C-6A39306162B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Desktop", "Cinema.Desktop\Cinema.Desktop.csproj", "{27F27BBE-64E5-4733-949C-6A39306162B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.WebApi.Tests", "Cinema.WebApi.Tests\Cinema.WebApi.Tests.csproj", "{70D4055C-117B-4681-B035-68F35D42048F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{27F27BBE-64E5-4733-949C-6A39306162B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27F27BBE-64E5-4733-949C-6A39306162B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27F27BBE-64E5-4733-949C-6A39306162B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70D4055C-117B-4681-B035-68F35D42048F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D4055C-117B-4681-B035-68F35D42048F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D4055C-117B-4681-B035-68F35D42048F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D4055C-117B-4681-B035-68F35D42048F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
