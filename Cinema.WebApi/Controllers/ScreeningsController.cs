@@ -4,6 +4,8 @@ using Cinema.Persistence.DTO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Cinema.Persistence.Services;
+using Microsoft.AspNetCore.Http;
+using Cinema.Persistence;
 
 namespace Cinema.WebApi.Controllers
 {
@@ -18,8 +20,8 @@ namespace Cinema.WebApi.Controllers
             _service = service;
         }
 
-        // GET: api/Screenings/5
-        [HttpGet("{movieId}")]
+        // GET: api/Screenings/Movie/5
+        [HttpGet("Movie/{movieId}")]
         public ActionResult<IEnumerable<ScreeningDto>> GetScreenings(int movieId)
         {
             try
@@ -35,83 +37,62 @@ namespace Cinema.WebApi.Controllers
             }
         }
 
-        /*// GET: api/Screenings/5
+        // GET: api/Screenings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Screening>> GetScreening(int id)
+        public ActionResult<ScreeningDto> GetScreening(int id)
         {
-            var screening = await _context.Screenings.FindAsync(id);
-
-            if (screening == null)
+            try
+            {
+                return (ScreeningDto)_service.GetScreeningById(id);
+            }
+            catch (InvalidOperationException)
             {
                 return NotFound();
             }
-
-            return screening;
         }
 
         // PUT: api/Screenings/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutScreening(int id, Screening screening)
+        public IActionResult PutScreening(int id, ScreeningDto screening)
         {
             if (id != screening.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(screening).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ScreeningExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            if (_service.UpdateScreening((Screening)screening))
+                return Ok();
+            else
+                return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // POST: api/Screenings
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Screening>> PostScreening(Screening screening)
+        public ActionResult<ScreeningDto> PostScreening(ScreeningDto screeningDto)
         {
-            _context.Screenings.Add(screening);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetScreening", new { id = screening.Id }, screening);
+            var screening = _service.CreateScreening((Screening)screeningDto);
+            if (screening == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            else
+            {
+                return CreatedAtAction("GetScreening", new { id = screening.Id }, (ScreeningDto)screening);
+            }
         }
 
         // DELETE: api/Screenings/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Screening>> DeleteScreening(int id)
+        public IActionResult DeleteScreening(int id)
         {
-            var screening = await _context.Screenings.FindAsync(id);
-            if (screening == null)
-            {
-                return NotFound();
-            }
-
-            _context.Screenings.Remove(screening);
-            await _context.SaveChangesAsync();
-
-            return screening;
+            if (_service.DeleteScreening(id))
+                return Ok();
+            else
+                return StatusCode(StatusCodes.Status500InternalServerError);
         }
-
-        private bool ScreeningExists(int id)
-        {
-            return _context.Screenings.Any(e => e.Id == id);
-        }*/
     }
 }

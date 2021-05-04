@@ -12,6 +12,12 @@ namespace Cinema.Persistence.Services
         List<Screening> GetTodaysScreenings();
         List<Screening> GetScreeningsByMovieId(int id);
         BookViewModel GetSeatsByScreeningId(int id);
+        Movie CreateMovie(Movie movie);
+        bool UpdateMovie(Movie movie);
+        bool DeleteMovie(int id);
+        Screening CreateScreening(Screening screening);
+        bool UpdateScreening(Screening screening);
+        bool DeleteScreening(int id);
         bool UpdateSeats(List<Seat> seats);
     }
 }

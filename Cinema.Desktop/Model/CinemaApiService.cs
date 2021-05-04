@@ -73,7 +73,7 @@ namespace Cinema.Desktop.Model
 
         public async Task<IEnumerable<ScreeningDto>> LoadScreeningsAsync(int movieId)
         {
-            var response = await _client.GetAsync($"api/Screenings/{movieId}");
+            var response = await _client.GetAsync($"api/Screenings/Movie/{movieId}");
 
             if (response.IsSuccessStatusCode)
             {
