@@ -12,7 +12,7 @@ namespace Cinema.Persistence
         {
             //context.Database.Migrate();
 
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             if (context.Movies.Any()) return;

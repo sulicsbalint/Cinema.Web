@@ -36,6 +36,13 @@ namespace Cinema.Desktop.ViewModel
 
         public DelegateCommand RefreshMoviesCommand { get; private set; }
         public DelegateCommand SelectCommand { get; private set; }
+        public DelegateCommand LogoutCommand { get; private set; }
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler LogoutSucceeded;
 
         #endregion
 
@@ -46,6 +53,7 @@ namespace Cinema.Desktop.ViewModel
             _service = service;
             RefreshMoviesCommand = new DelegateCommand(_ => LoadMovieAsync());
             SelectCommand = new DelegateCommand(param => LoadScreeningsAsync(param as MovieDto));
+            LogoutCommand = new DelegateCommand(_ => LogoutAsync());
         }
 
         #endregion
@@ -75,6 +83,21 @@ namespace Cinema.Desktop.ViewModel
             catch (Exception e) when (e is NetworkException || e is HttpRequestException)
             {
                 OnMessageApplication($"Unexpected error occured ({e.Message})");
+            }
+        }
+
+        private async void LogoutAsync()
+        {
+            try
+            {
+                await _service.LogoutAsync();
+                
+                LogoutSucceeded?.Invoke(this, EventArgs.Empty);
+
+            }
+            catch (Exception ex) when (ex is NetworkException || ex is HttpRequestException)
+            {
+                OnMessageApplication($"Unexpected error occured! ({ex.Message})");
             }
         }
 

@@ -14,7 +14,8 @@
     </i:Interaction.Triggers>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_Refresh movies" Command="{Binding RefreshMoviesCommand}" />
+            <MenuItem Header="Filmek frissítése" Command="{Binding RefreshMoviesCommand}" />
+            <MenuItem Header="Kijelentkezés" Command="{Binding LogoutCommand}" />
         </Menu>
         <Grid>
             <Grid.RowDefinitions>
