@@ -45,7 +45,7 @@ namespace Cinema.WebApi.Controllers
         // PUT: api/Movies/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [Authorize]
+        //[Authorize]
         [HttpPut("{id}")]
         public IActionResult PutMovie(int id, MovieDto movie)
         {
@@ -63,7 +63,7 @@ namespace Cinema.WebApi.Controllers
         // POST: api/Movies
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public ActionResult<MovieDto> PostMovie(MovieDto movieDto)
         {
@@ -74,12 +74,12 @@ namespace Cinema.WebApi.Controllers
             }
             else
             {
-                return CreatedAtAction("GetMovie", new { id = movie.Id }, (MovieDto)movie);
+                return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, (MovieDto)movie);
             }
         }
 
         // DELETE: api/Movies/5
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteMovie(int id)
         {

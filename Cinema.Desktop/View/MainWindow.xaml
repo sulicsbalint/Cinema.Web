@@ -19,56 +19,44 @@
         </Menu>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0">
                 <GroupBox.Header>
-                    <Label Content="Movies:" />
+                    <Label Content="Filmek:" />
                 </GroupBox.Header>
                 <DataGrid ItemsSource="{Binding Movies}"
                       VerticalContentAlignment="Stretch"  IsReadOnly="True"
-                      AutoGenerateColumns="False" HeadersVisibility="None">
+                      AutoGenerateColumns="False" HeadersVisibility="None"
+                      SelectedItem="{Binding SelectedMovie}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction
-                                Command="{Binding SelectCommand}"
-                                CommandParameter="{
-                                    Binding Path=SelectedItem,
-                                    RelativeSource={
-                                        RelativeSource
-                                        AncestorType={x:Type DataGrid},
-                                        AncestorLevel=1}}" />
+                            <i:InvokeCommandAction Command="{Binding SelectCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Title}" Width="*" />
-                        <DataGridTemplateColumn Header="Image">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding Image}" MaxHeight="48" MaxWidth="48" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
-            <GroupBox Grid.Row="1">
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBox Width="100"  Height="21" Margin="5" Text="{Binding SelectedMovieTitle, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Width="Auto"  Height="21" Margin="5" Content="Film hozzáadása" Command="{Binding AddMovieCommand}" />
+                <Button Width="Auto"  Height="21" Margin="5" Content="Film szerkesztése" Command="{Binding EditMovieCommand}" />
+                <Button Width="Auto"  Height="21" Margin="5" Content="Film törlése" Command="{Binding DeleteMovieCommand}" />
+            </StackPanel>
+            <GroupBox Grid.Row="2">
                 <GroupBox.Header>
-                    <Label Content="Screenings:" />
+                    <Label Content="Vetítések:" />
                 </GroupBox.Header>
                 <DataGrid VerticalContentAlignment="Stretch" ItemsSource="{Binding Screenings}" IsReadOnly="True"
                       AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Start time" Binding="{Binding StartTime}" />
-                        <!--<DataGridTextColumn Header="Deadline" Binding="{Binding Deadline}" />
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextWrapping" Value="Wrap" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>-->
+                        <DataGridTextColumn Header="Kezdés" Binding="{Binding StartTime}" />
+                        <DataGridTextColumn Header="Film" Binding="{Binding MovieId}" />
+                        <DataGridTextColumn Header="Terem" Binding="{Binding RoomId}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>

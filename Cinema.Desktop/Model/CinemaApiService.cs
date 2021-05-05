@@ -1,4 +1,5 @@
-﻿using Cinema.Persistence.DTO;
+﻿using Cinema.Desktop.ViewModel;
+using Cinema.Persistence.DTO;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -59,16 +60,47 @@ namespace Cinema.Desktop.Model
             throw new NetworkException("Service returned response: " + response.StatusCode);
         }
 
-        public async Task<IEnumerable<MovieDto>> LoadMoviesAsync()
+        public async Task<IEnumerable<MovieViewModel>> LoadMoviesAsync()
         {
             var response = await _client.GetAsync("api/Movies");
 
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadAsAsync<IEnumerable<MovieDto>>();
+                return await response.Content.ReadAsAsync<IEnumerable<MovieViewModel>>();
             }
 
             throw new NetworkException("Service returned response: " + response.StatusCode);
+        }
+
+        public async Task CreateMovieAsync(MovieDto movie)
+        {
+            HttpResponseMessage response = await _client.PostAsJsonAsync($"api/Movies", movie);
+            movie.Id = (await response.Content.ReadAsAsync<MovieDto>()).Id;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new NetworkException("Service returned response: " + response.StatusCode);
+            }
+        }
+
+        public async Task UpdateMovieAsync(MovieDto movie)
+        {
+            HttpResponseMessage response = await _client.PutAsJsonAsync($"api/movies/{movie.Id}", movie);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new NetworkException("Service returned response: " + response.StatusCode);
+            }
+        }
+
+        public async Task DeleteMovieAsync(Int32 movieId)
+        {
+            HttpResponseMessage response = await _client.DeleteAsync($"api/movies/{movieId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new NetworkException("Service returned response: " + response.StatusCode);
+            }
         }
 
         public async Task<IEnumerable<ScreeningDto>> LoadScreeningsAsync(int movieId)

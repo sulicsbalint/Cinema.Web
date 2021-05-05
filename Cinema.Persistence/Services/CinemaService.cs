@@ -26,6 +26,7 @@ namespace Cinema.Persistence.Services
         public Movie GetMovieById(int id)
         {
             return _context.Movies
+                .Include(m => m.Screenings)
                 .FirstOrDefault(m => m.Id == id);
         }
 
