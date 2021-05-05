@@ -1,0 +1,60 @@
+﻿<Window x:Class="Cinema.Desktop.View.ScreeningCreatorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cinema.Desktop.View"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Filmszínház - Előadás hozzáadása" Height="Auto" Width="400"
+        ResizeMode="NoResize" SizeToContent="Height">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding CancelScreeningCreateCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Kezdés:" VerticalAlignment="Center" />
+        <xctk:DateTimePicker Grid.Row="0" Grid.Column="1" Margin="5"
+                    Value="{Binding CreateableScreening.StartTime}"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Film:" VerticalAlignment="Center" />
+        <ComboBox Grid.Row="2" Grid.Column="1" Margin="5"
+                  ItemsSource="{Binding Movies}"
+                  SelectedValue="{Binding CreateableScreening.MovieId}"
+                  SelectedValuePath="Id"
+                  DisplayMemberPath="Name" />
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Terem:" VerticalAlignment="Center" />
+        <ComboBox Grid.Row="3" Grid.Column="1" Margin="5"
+                  ItemsSource="{Binding Rooms}"
+                  SelectedValue="{Binding CreateableScreening.RoomId}"
+                  SelectedValuePath="Id"
+                  DisplayMemberPath="Name" />
+
+        <Button Grid.Row="4" Grid.Column="0" Content="Mégsem"
+                HorizontalAlignment="Left" VerticalAlignment="Center"
+                Width="73"  Height="21"  Margin="5"
+                IsCancel="True"
+                Command="{Binding CancelScreeningCreateCommand}"/>
+
+        <Button Grid.Row="4" Grid.Column="1" Content="Mentés"
+                HorizontalAlignment="Right" VerticalAlignment="Center"
+                Width="73"  Height="21"  Margin="5"
+                IsDefault="True"
+                Command="{Binding SaveScreeningCreateCommand}"/>
+    </Grid>
+</Window>

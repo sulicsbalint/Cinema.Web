@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:Cinema.Desktop.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Filmszínház" Height="450" Width="800">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="ContentRendered">
             <i:InvokeCommandAction Command="{Binding RefreshMoviesCommand}" />
@@ -22,6 +22,7 @@
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="3*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0">
                 <GroupBox.Header>
@@ -42,17 +43,16 @@
                 </DataGrid>
             </GroupBox>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <TextBox Width="100"  Height="21" Margin="5" Text="{Binding SelectedMovieTitle, UpdateSourceTrigger=PropertyChanged}" />
                 <Button Width="Auto"  Height="21" Margin="5" Content="Film hozzáadása" Command="{Binding AddMovieCommand}" />
                 <Button Width="Auto"  Height="21" Margin="5" Content="Film szerkesztése" Command="{Binding EditMovieCommand}" />
                 <Button Width="Auto"  Height="21" Margin="5" Content="Film törlése" Command="{Binding DeleteMovieCommand}" />
             </StackPanel>
             <GroupBox Grid.Row="2">
                 <GroupBox.Header>
-                    <Label Content="Vetítések:" />
+                    <Label Content="Előadások:" />
                 </GroupBox.Header>
                 <DataGrid VerticalContentAlignment="Stretch" ItemsSource="{Binding Screenings}" IsReadOnly="True"
-                      AutoGenerateColumns="False">
+                      AutoGenerateColumns="False" SelectedItem="{Binding SelectedScreening}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Kezdés" Binding="{Binding StartTime}" />
                         <DataGridTextColumn Header="Film" Binding="{Binding MovieId}" />
@@ -60,6 +60,11 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <Button Width="Auto"  Height="21" Margin="5" Content="Előadás hozzáadása" Command="{Binding AddScreeningCommand}" />
+                <Button Width="Auto"  Height="21" Margin="5" Content="Előadás szerkesztése" Command="{Binding EditScreeningCommand}" />
+                <Button Width="Auto"  Height="21" Margin="5" Content="Előadás törlése" Command="{Binding DeleteScreeningCommand}" />
+            </StackPanel>
         </Grid>
     </DockPanel>
 </Window>
