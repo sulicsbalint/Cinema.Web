@@ -60,6 +60,10 @@ namespace Cinema.Desktop.Model
             throw new NetworkException("Service returned response: " + response.StatusCode);
         }
 
+        #endregion
+
+        #region Movie services
+
         public async Task<IEnumerable<MovieViewModel>> LoadMoviesAsync()
         {
             var response = await _client.GetAsync("api/Movies");
@@ -103,13 +107,64 @@ namespace Cinema.Desktop.Model
             }
         }
 
-        public async Task<IEnumerable<ScreeningDto>> LoadScreeningsAsync(int movieId)
+        #endregion
+
+        #region Screening services
+
+        public async Task<IEnumerable<ScreeningViewModel>> LoadScreeningsAsync(int movieId)
         {
             var response = await _client.GetAsync($"api/Screenings/Movie/{movieId}");
 
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadAsAsync<IEnumerable<ScreeningDto>>();
+                return await response.Content.ReadAsAsync<IEnumerable<ScreeningViewModel>>();
+            }
+
+            throw new NetworkException("Service returned response: " + response.StatusCode);
+        }
+
+        public async Task CreateScreeningAsync(ScreeningDto screening)
+        {
+            HttpResponseMessage response = await _client.PostAsJsonAsync("api/Screenings/", screening);
+            screening.Id = (await response.Content.ReadAsAsync<ScreeningDto>()).Id;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new NetworkException("Service returned response: " + response.StatusCode);
+            }
+        }
+
+        public async Task UpdateScreeningAsync(ScreeningDto screening)
+        {
+            HttpResponseMessage response = await _client.PutAsJsonAsync($"api/Screenings/{screening.Id}", screening);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new NetworkException("Service returned response: " + response.StatusCode);
+            }
+        }
+
+        public async Task DeleteScreeningAsync(Int32 screeningId)
+        {
+            HttpResponseMessage response = await _client.DeleteAsync($"api/Screenings/{screeningId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new NetworkException("Service returned response: " + response.StatusCode);
+            }
+        }
+
+        #endregion
+
+        #region Room service
+
+        public async Task<IEnumerable<RoomViewModel>> LoadRoomsAsync()
+        {
+            var response = await _client.GetAsync("api/Movies");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsAsync<IEnumerable<RoomViewModel>>();
             }
 
             throw new NetworkException("Service returned response: " + response.StatusCode);

@@ -11,27 +11,31 @@ namespace Cinema.Desktop.ViewModel
         #region Fields
 
         private readonly CinemaApiService _service;
+
+        /******************************Movie******************************/
         private ObservableCollection<MovieViewModel> _movies;
-        private ObservableCollection<ScreeningDto> _screenings;
         private MovieViewModel _selectedMovie;
         private MovieViewModel _editableMovie;
         private MovieViewModel _createableMovie;
-        private String _selectedMovieTitle;
+
+        /****************************Screening****************************/
+        private ObservableCollection<ScreeningViewModel> _screenings;
+        private ScreeningViewModel _selectedScreening;
+        private ScreeningViewModel _editableScreening;
+        private ScreeningViewModel _createableScreening;
+
+        /*******************************Room******************************/
+        private ObservableCollection<RoomViewModel> _rooms;
 
         #endregion
 
         #region Properties
 
+        /******************************Movie******************************/
         public ObservableCollection<MovieViewModel> Movies
         {
             get { return _movies; }
             set { _movies = value; OnPropertyChanged(); }
-        }
-
-        public ObservableCollection<ScreeningDto> Screenings
-        {
-            get { return _screenings; }
-            set { _screenings = value; OnPropertyChanged(); }
         }
 
         public MovieViewModel SelectedMovie
@@ -52,10 +56,36 @@ namespace Cinema.Desktop.ViewModel
             set { _createableMovie = value; OnPropertyChanged(); }
         }
 
-        public String SelectedMovieTitle
+        /******************************Screening******************************/
+        public ObservableCollection<ScreeningViewModel> Screenings
         {
-            get { return _selectedMovieTitle; }
-            set { _selectedMovieTitle = value; OnPropertyChanged(); }
+            get { return _screenings; }
+            set { _screenings = value; OnPropertyChanged(); }
+        }
+
+        public ScreeningViewModel SelectedScreening
+        {
+            get { return _selectedScreening; }
+            set { _selectedScreening = value; OnPropertyChanged(); }
+        }
+
+        public ScreeningViewModel EditableScreening
+        {
+            get { return _editableScreening; }
+            set { _editableScreening = value; OnPropertyChanged(); }
+        }
+
+        public ScreeningViewModel CreateableScreening
+        {
+            get { return _createableScreening; }
+            set { _createableScreening = value; OnPropertyChanged(); }
+        }
+
+        /*******************************Room******************************/
+        public ObservableCollection<RoomViewModel> Rooms
+        {
+            get { return _rooms; }
+            set { _rooms = value; OnPropertyChanged(); }
         }
 
         #endregion
@@ -65,17 +95,36 @@ namespace Cinema.Desktop.ViewModel
         public DelegateCommand RefreshMoviesCommand { get; private set; }
         public DelegateCommand SelectCommand { get; private set; }
         public DelegateCommand LogoutCommand { get; private set; }
+
+        /*****************************Movie*****************************/
         public DelegateCommand AddMovieCommand { get; private set; }
         public DelegateCommand EditMovieCommand { get; private set; }
         public DelegateCommand DeleteMovieCommand { get; private set; }
 
+        //Edit
         public DelegateCommand SaveMovieEditCommand { get; private set; }
         public DelegateCommand CancelMovieEditCommand { get; private set; }
         public DelegateCommand ChangeImageCommand { get; private set; }
+        public DelegateCommand ChangeCoverCommand { get; private set; }
 
+        //Add
         public DelegateCommand SaveMovieCreateCommand { get; private set; }
         public DelegateCommand CancelMovieCreateCommand { get; private set; }
         public DelegateCommand AddImageCommand { get; private set; }
+        public DelegateCommand AddCoverCommand { get; private set; }
+
+        /*******************************Screening*******************************/
+        public DelegateCommand AddScreeningCommand { get; private set; }
+        public DelegateCommand EditScreeningCommand { get; private set; }
+        public DelegateCommand DeleteScreeningCommand { get; private set; }
+
+        //Add
+        public DelegateCommand SaveScreeningCreateCommand { get; private set; }
+        public DelegateCommand CancelScreeningCreateCommand { get; private set; }
+
+        //Edit
+        public DelegateCommand SaveScreeningEditCommand { get; private set; }
+        public DelegateCommand CancelScreeningEditCommand { get; private set; }
 
         #endregion
 
@@ -83,13 +132,27 @@ namespace Cinema.Desktop.ViewModel
 
         public event EventHandler LogoutSucceeded;
 
+        /************************Movie************************/
+        //Edit
         public event EventHandler StartingMovieEdit;
         public event EventHandler FinishingMovieEdit;
         public event EventHandler StartingImageChange;
+        public event EventHandler StartingCoverChange;
 
+        //Add
         public event EventHandler StartingMovieCreate;
         public event EventHandler FinishingMovieCreate;
         public event EventHandler StartingImageAdd;
+        public event EventHandler StartingCoverAdd;
+
+        /************************Screening************************/
+        //Edit
+        public event EventHandler StartingScreeningEdit;
+        public event EventHandler FinishingScreeningEdit;
+
+        //Add
+        public event EventHandler StartingScreeningCreate;
+        public event EventHandler FinishingScreeningCreate;
 
         #endregion
 
@@ -102,17 +165,35 @@ namespace Cinema.Desktop.ViewModel
             SelectCommand = new DelegateCommand(_ => LoadScreeningsAsync(SelectedMovie));
             LogoutCommand = new DelegateCommand(_ => LogoutAsync());
 
+            /***********************************************Movie*****************************************************/
             AddMovieCommand = new DelegateCommand(_ => StartCreateMovie());
             EditMovieCommand = new DelegateCommand(_ => !(SelectedMovie is null), _ => StartEditMovie());
             DeleteMovieCommand = new DelegateCommand(_ => !(SelectedMovie is null), _ => DeleteMovie(SelectedMovie));
 
+            //Edit
             SaveMovieEditCommand = new DelegateCommand(_ => SaveMovieEdit());
             CancelMovieEditCommand = new DelegateCommand(_ => CancelMovieEdit());
             ChangeImageCommand = new DelegateCommand(_ => StartingImageChange?.Invoke(this, EventArgs.Empty));
+            ChangeCoverCommand = new DelegateCommand(_ => StartingCoverChange?.Invoke(this, EventArgs.Empty));
 
+            //Add
             SaveMovieCreateCommand = new DelegateCommand(_ => SaveMovieCreate());
             CancelMovieCreateCommand = new DelegateCommand(_ => CancelMovieCreate());
             AddImageCommand = new DelegateCommand(_ => StartingImageAdd?.Invoke(this, EventArgs.Empty));
+            AddCoverCommand = new DelegateCommand(_ => StartingCoverAdd?.Invoke(this, EventArgs.Empty));
+
+            /******************************************************Screening*************************************************************/
+            AddScreeningCommand = new DelegateCommand(_ => !(SelectedMovie is null), _ => StartCreateScreening());
+            EditScreeningCommand = new DelegateCommand(_ => !(SelectedScreening is null), _ => StartEditScreening());
+            DeleteScreeningCommand = new DelegateCommand(_ => !(SelectedScreening is null), _ => DeleteScreening(SelectedScreening));
+
+            //Edit
+            SaveScreeningEditCommand = new DelegateCommand(_ => SaveScreeningEdit());
+            CancelScreeningEditCommand = new DelegateCommand(_ => CancelScreeningEdit());
+
+            //Add
+            SaveScreeningCreateCommand = new DelegateCommand(_ => SaveScreeningCreate());
+            CancelScreeningCreateCommand = new DelegateCommand(_ => CancelScreeningCreate());
         }
 
         #endregion
@@ -124,6 +205,7 @@ namespace Cinema.Desktop.ViewModel
             try
             {
                 Movies = new ObservableCollection<MovieViewModel>(await _service.LoadMoviesAsync());
+                Rooms = new ObservableCollection<RoomViewModel>(await _service.LoadRoomsAsync());
             }
             catch (Exception e) when (e is NetworkException || e is HttpRequestException)
             {
@@ -131,6 +213,7 @@ namespace Cinema.Desktop.ViewModel
             }
         }
 
+        //Edit
         private void StartEditMovie()
         {
             EditableMovie = SelectedMovie.ShallowClone();
@@ -157,6 +240,7 @@ namespace Cinema.Desktop.ViewModel
             FinishingMovieEdit?.Invoke(this, EventArgs.Empty);
         }
 
+        //Add
         private void StartCreateMovie()
         {
             var newMovie = new MovieViewModel
@@ -193,6 +277,7 @@ namespace Cinema.Desktop.ViewModel
             FinishingMovieCreate?.Invoke(this, EventArgs.Empty);
         }
 
+        //Delete
         private async void DeleteMovie(MovieViewModel movie)
         {
             try
@@ -209,7 +294,7 @@ namespace Cinema.Desktop.ViewModel
 
         #endregion
 
-        #region Methods
+        #region Screening methods
 
         private async void LoadScreeningsAsync(MovieViewModel movie)
         {
@@ -217,8 +302,7 @@ namespace Cinema.Desktop.ViewModel
 
             try
             {
-                SelectedMovieTitle = movie.Title;
-                Screenings = new ObservableCollection<ScreeningDto>(await _service.LoadScreeningsAsync(movie.Id));
+                Screenings = new ObservableCollection<ScreeningViewModel>(await _service.LoadScreeningsAsync(movie.Id));
             }
             catch (Exception e) when (e is NetworkException || e is HttpRequestException)
             {
@@ -226,12 +310,96 @@ namespace Cinema.Desktop.ViewModel
             }
         }
 
+        //Edit
+        private void StartEditScreening()
+        {
+            EditableScreening = SelectedScreening.ShallowClone();
+            StartingScreeningEdit?.Invoke(this, EventArgs.Empty);
+        }
+
+        private async void SaveScreeningEdit()
+        {
+            try
+            {
+                SelectedScreening.CopyFrom(EditableScreening);
+                await _service.UpdateScreeningAsync((ScreeningDto)SelectedScreening);
+            }
+            catch (Exception ex) when (ex is NetworkException || ex is HttpRequestException)
+            {
+                OnMessageApplication($"Unexpected error occured! ({ex.Message})");
+            }
+            FinishingScreeningEdit?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void CancelScreeningEdit()
+        {
+            EditableScreening = null;
+            FinishingScreeningEdit?.Invoke(this, EventArgs.Empty);
+        }
+
+        //Add
+        private void StartCreateScreening()
+        {
+            var newScreening = new ScreeningViewModel
+            {
+                StartTime = DateTime.Now,
+                MovieId = SelectedMovie.Id
+            };
+
+            CreateableScreening = newScreening.ShallowClone();
+            StartingScreeningCreate?.Invoke(this, EventArgs.Empty);
+        }
+
+        private async void SaveScreeningCreate()
+        {
+            try
+            {
+                var newScreening = new ScreeningViewModel();
+                newScreening.CopyFrom(CreateableScreening);
+                var screeningDto = (ScreeningDto)newScreening;
+                await _service.CreateScreeningAsync(screeningDto);
+                newScreening.Id = screeningDto.Id;
+                Screenings.Add(newScreening);
+                SelectedScreening = newScreening;
+            }
+            catch (Exception ex) when (ex is NetworkException || ex is HttpRequestException)
+            {
+                OnMessageApplication($"Unexpected error occured! ({ex.Message})");
+            }
+            FinishingScreeningCreate?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void CancelScreeningCreate()
+        {
+            CreateableScreening = null;
+            FinishingScreeningCreate?.Invoke(this, EventArgs.Empty);
+        }
+
+        //Delete
+        private async void DeleteScreening(ScreeningViewModel screening)
+        {
+            try
+            {
+                await _service.DeleteScreeningAsync(screening.Id);
+                Screenings.Remove(SelectedScreening);
+                SelectedMovie = null;
+            }
+            catch (Exception ex) when (ex is NetworkException || ex is HttpRequestException)
+            {
+                OnMessageApplication($"Unexpected error occured! ({ex.Message})");
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
         private async void LogoutAsync()
         {
             try
             {
                 await _service.LogoutAsync();
-                
+
                 LogoutSucceeded?.Invoke(this, EventArgs.Empty);
 
             }
