@@ -6,7 +6,6 @@ using System.Linq;
 using Cinema.Persistence;
 using Microsoft.AspNetCore.Http;
 using System;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema.WebApi.Controllers
 {
@@ -25,7 +24,9 @@ namespace Cinema.WebApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<MovieDto>> GetMovies()
         {
-            return _service.GetMovies().Select(movie => (MovieDto)movie).ToList();
+            return _service.GetMovies()
+                .Select(movie => (MovieDto)movie)
+                .ToList();
         }
 
         // GET: api/Movies/5
