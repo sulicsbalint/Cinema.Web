@@ -15,6 +15,12 @@ namespace Cinema.Persistence.Services
             _context = context;
         }
 
+        public List<Room> GetRooms()
+        {
+            return _context.Rooms
+                .ToList();
+        }
+
         public List<Movie> GetMovies(string title = null)
         {
             return _context.Movies
