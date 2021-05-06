@@ -46,7 +46,7 @@ namespace Cinema.WebApi.Controllers
             {
                 return (ScreeningDto)_service.GetScreeningById(id);
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
                 return NotFound();
             }

@@ -17,6 +17,7 @@ namespace Cinema.WebApi.Tests
             {
                 new Screening
                 {
+                    Id = 1,
                     StartTime = DateTime.Now.AddDays(1),
                     Seats = new List<Seat>
                     {
@@ -49,6 +50,7 @@ namespace Cinema.WebApi.Tests
             {
                 new Screening
                 {
+                    Id = 2,
                     StartTime = DateTime.Now.AddDays(1),
                     Seats = new List<Seat>
                     {
@@ -69,6 +71,35 @@ namespace Cinema.WebApi.Tests
                         new Seat
                         {
                             Id = 6,
+                            Row = 1,
+                            Column = 3,
+                            Status = 0
+                        }
+                    }
+                },
+                new Screening
+                {
+                    Id = 3,
+                    StartTime = DateTime.Now.AddDays(1),
+                    Seats = new List<Seat>
+                    {
+                        new Seat
+                        {
+                            Id = 7,
+                            Row = 1,
+                            Column = 1,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Id = 8,
+                            Row = 1,
+                            Column = 2,
+                            Status = 0
+                        },
+                        new Seat
+                        {
+                            Id = 9,
                             Row = 1,
                             Column = 3,
                             Status = 0

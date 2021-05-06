@@ -52,7 +52,7 @@ namespace Cinema.WebApi.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [Authorize]
         [HttpPut("{id}")]
-        public IActionResult PutScreening(int id, SeatDto seat)
+        public IActionResult PutSeat(int id, SeatDto seat)
         {
             if (id != seat.Id)
             {
