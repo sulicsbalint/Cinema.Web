@@ -1,5 +1,8 @@
-﻿using Cinema.Persistence.DTO;
+﻿using Cinema.Persistence;
+using Cinema.Persistence.DTO;
 using Cinema.Persistence.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -42,6 +45,24 @@ namespace Cinema.WebApi.Controllers
             return _service.GetSeats()
                 .Select(seat => (SeatDto)seat)
                 .ToList();
+        }
+
+        // PUT: api/Seats/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize]
+        [HttpPut("{id}")]
+        public IActionResult PutScreening(int id, SeatDto seat)
+        {
+            if (id != seat.Id)
+            {
+                return BadRequest();
+            }
+
+            if (_service.UpdateSeat((Seat)seat))
+                return Ok();
+            else
+                return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

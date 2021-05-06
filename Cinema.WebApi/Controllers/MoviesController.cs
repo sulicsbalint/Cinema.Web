@@ -6,6 +6,7 @@ using System.Linq;
 using Cinema.Persistence;
 using Microsoft.AspNetCore.Http;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema.WebApi.Controllers
 {
@@ -46,7 +47,7 @@ namespace Cinema.WebApi.Controllers
         // PUT: api/Movies/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[Authorize]
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult PutMovie(int id, MovieDto movie)
         {
@@ -64,7 +65,7 @@ namespace Cinema.WebApi.Controllers
         // POST: api/Movies
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public ActionResult<MovieDto> PostMovie(MovieDto movieDto)
         {
@@ -80,7 +81,7 @@ namespace Cinema.WebApi.Controllers
         }
 
         // DELETE: api/Movies/5
-        //[Authorize]
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteMovie(int id)
         {
