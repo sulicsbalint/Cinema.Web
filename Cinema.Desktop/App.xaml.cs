@@ -93,8 +93,8 @@ namespace Cinema.Desktop
                 DataContext = _mainViewModel
             };
 
-            _mainView.Show();
-            //_loginView.Show();
+            //_mainView.Show();
+            _loginView.Show();
         }
 
         private void _mainViewModel_LogoutSucceeded(object sender, EventArgs e)

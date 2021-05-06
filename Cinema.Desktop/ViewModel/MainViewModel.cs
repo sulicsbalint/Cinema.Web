@@ -117,6 +117,7 @@ namespace Cinema.Desktop.ViewModel
         #region Commands
 
         public DelegateCommand RefreshMoviesCommand { get; private set; }
+        public DelegateCommand RefreshSeatsCommand { get; private set; }
         public DelegateCommand SelectCommand { get; private set; }
         public DelegateCommand SelectScreeningCommand { get; private set; }
         public DelegateCommand SelectSeatCommand { get; private set; }
@@ -158,6 +159,7 @@ namespace Cinema.Desktop.ViewModel
         //Edit
         public DelegateCommand SaveSeatEditCommand { get; private set; }
         public DelegateCommand CancelSeatEditCommand { get; private set; }
+        public DelegateCommand SellSeatCommand { get; private set; }
 
         #endregion
 
@@ -202,6 +204,7 @@ namespace Cinema.Desktop.ViewModel
             RefreshMoviesCommand = new DelegateCommand(_ => LoadMoviesAsync());
             SelectCommand = new DelegateCommand(_ => LoadScreeningsAsync(SelectedMovie));
             SelectScreeningCommand = new DelegateCommand(_ => LoadSeatsAsync(SelectedScreening));
+            RefreshSeatsCommand = new DelegateCommand(_ => LoadSeatsAsync(SelectedScreening));
             LogoutCommand = new DelegateCommand(_ => LogoutAsync());
 
             /***********************************************Movie*****************************************************/
@@ -240,6 +243,7 @@ namespace Cinema.Desktop.ViewModel
             //Edit
             SaveSeatEditCommand = new DelegateCommand(_ => SaveSeatEdit());
             CancelSeatEditCommand = new DelegateCommand(_ => CancelSeatEdit());
+            SellSeatCommand = new DelegateCommand(_ => !(SelectedSeat is null) && (SelectedSeat.Status == 0 || SelectedSeat.Status == 1), _ => SellSeat());
         }
 
         #endregion
@@ -482,6 +486,21 @@ namespace Cinema.Desktop.ViewModel
         private void CancelSeatEdit()
         {
             EditableSeat = null;
+            FinishingSeatEdit?.Invoke(this, EventArgs.Empty);
+        }
+
+        private async void SellSeat()
+        {
+            try
+            {
+                SelectedSeat.CopyFrom(EditableSeat);
+                SelectedSeat.Status = 2;
+                await _service.UpdateSeatAsync((SeatDto)SelectedSeat);
+            }
+            catch (Exception ex) when (ex is NetworkException || ex is HttpRequestException)
+            {
+                OnMessageApplication($"Unexpected error occured! ({ex.Message})");
+            }
             FinishingSeatEdit?.Invoke(this, EventArgs.Empty);
         }
 
