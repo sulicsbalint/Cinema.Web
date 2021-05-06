@@ -51,8 +51,15 @@
                 <GroupBox.Header>
                     <Label Content="Előadások:" />
                 </GroupBox.Header>
-                <DataGrid VerticalContentAlignment="Stretch" ItemsSource="{Binding Screenings}" IsReadOnly="True"
-                      AutoGenerateColumns="False" SelectedItem="{Binding SelectedScreening}">
+                <DataGrid ItemsSource="{Binding Screenings}" 
+                      VerticalContentAlignment="Stretch" IsReadOnly="True"
+                      AutoGenerateColumns="False" 
+                      SelectedItem="{Binding SelectedScreening}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectScreeningCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Kezdés" Binding="{Binding StartTime}" />
                         <DataGridTextColumn Header="Film" Binding="{Binding MovieId}" />

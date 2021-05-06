@@ -1,4 +1,4 @@
-﻿<Window x:Class="Cinema.Desktop.View.ScreeningCreatorWindow"
+﻿<Window x:Class="Cinema.Desktop.View.SeatEditorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,11 +7,11 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Filmszínház - Előadás hozzáadása" Height="Auto" Width="400"
+        Title="Filmszínház - Hely szerkesztése" Height="Auto" Width="350"
         ResizeMode="NoResize" SizeToContent="Height">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
-            <i:InvokeCommandAction Command="{Binding CancelScreeningCreateCommand}"/>
+            <i:InvokeCommandAction Command="{Binding CancelSeatEditCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Margin="10">
@@ -25,36 +25,33 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Kezdés:" VerticalAlignment="Center" />
-        <xctk:DateTimePicker Grid.Row="0" Grid.Column="1" Margin="5"
-                    Value="{Binding CreateableScreening.StartTime}"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Foglaló neve:" VerticalAlignment="Center" />
+        <TextBox x:Name="textBoxPhone" Grid.Row="0" Grid.Column="1" Margin="5"
+                 Text="{Binding EditableSeat.ReserverName, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Film:" VerticalAlignment="Center" />
-        <ComboBox Grid.Row="2" Grid.Column="1" Margin="5"
-                  ItemsSource="{Binding Movies}"
-                  SelectedValue="{Binding CreateableScreening.MovieId}"
-                  SelectedValuePath="Id"
-                  DisplayMemberPath="Title" />
+        <Label Grid.Row="1" Grid.Column="0" Content="Foglaló telefonszáma:" VerticalAlignment="Center" />
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" PreviewTextInput="TextBox_PreviewPhoneInput"
+                 Text="{Binding EditableSeat.ReserverPhone, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Row="3" Grid.Column="0" Content="Terem:" VerticalAlignment="Center" />
-        <ComboBox Grid.Row="3" Grid.Column="1" Margin="5"
-                  ItemsSource="{Binding Rooms}"
-                  SelectedValue="{Binding CreateableScreening.RoomId}"
-                  SelectedValuePath="Id"
-                  DisplayMemberPath="Name" />
+        <Label Grid.Row="2" Grid.Column="0" Content="Hely státusza:" VerticalAlignment="Center" />
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" PreviewTextInput="TextBox_PreviewStatusInput"
+                 Text="{Binding EditableSeat.Status, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Button Grid.Row="4" Grid.Column="0" Content="Mégsem"
+        <Button Grid.Row="6" Grid.Column="0" Content="Mégsem"
                 HorizontalAlignment="Left" VerticalAlignment="Center"
                 Width="73"  Height="21"  Margin="5"
                 IsCancel="True"
-                Command="{Binding CancelScreeningCreateCommand}"/>
+                Command="{Binding CancelScreeningEditCommand}"/>
 
-        <Button Grid.Row="4" Grid.Column="1" Content="Mentés"
+        <Button Grid.Row="6" Grid.Column="1" Content="Mentés"
                 HorizontalAlignment="Right" VerticalAlignment="Center"
                 Width="73"  Height="21"  Margin="5"
                 IsDefault="True"
-                Command="{Binding SaveScreeningCreateCommand}"/>
+                Command="{Binding SaveScreeningEditCommand}"/>
     </Grid>
 </Window>
+
