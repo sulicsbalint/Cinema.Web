@@ -25,6 +25,7 @@ namespace Cinema.Persistence.Services
         bool DeleteScreening(int id);
 
         //Seat
+        List<Seat> GetSeats();
         BookViewModel GetSeatsByScreeningId(int id);
         bool UpdateSeats(List<Seat> seats);
     }

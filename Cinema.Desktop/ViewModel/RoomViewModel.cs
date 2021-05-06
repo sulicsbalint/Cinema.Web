@@ -41,23 +41,6 @@ namespace Cinema.Desktop.ViewModel
 
         #endregion
 
-        #region Methods
-
-        public RoomViewModel ShallowClone()
-        {
-            return (RoomViewModel)this.MemberwiseClone();
-        }
-
-        public void CopyFrom(RoomViewModel rhs)
-        {
-            Id = rhs.Id;
-            Name = rhs.Name;
-            Rows = rhs.Rows;
-            Columns = rhs.Columns;
-        }
-
-        #endregion
-
         #region Operators
 
         public static explicit operator RoomViewModel(RoomDto dto) => new RoomViewModel

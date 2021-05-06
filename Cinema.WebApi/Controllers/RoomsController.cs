@@ -19,7 +19,7 @@ namespace Cinema.WebApi.Controllers
 
         // GET: api/Rooms
         [HttpGet]
-        public ActionResult<IEnumerable<RoomDto>> GetMovies()
+        public ActionResult<IEnumerable<RoomDto>> GetRooms()
         {
             return _service.GetRooms()
                 .Select(room => (RoomDto)room)
