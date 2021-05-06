@@ -24,9 +24,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Foglaló neve:" VerticalAlignment="Center" />
@@ -34,24 +31,26 @@
                  Text="{Binding EditableSeat.ReserverName, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Grid.Row="1" Grid.Column="0" Content="Foglaló telefonszáma:" VerticalAlignment="Center" />
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" PreviewTextInput="TextBox_PreviewPhoneInput"
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="5"
                  Text="{Binding EditableSeat.ReserverPhone, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Hely státusza:" VerticalAlignment="Center" />
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" PreviewTextInput="TextBox_PreviewStatusInput"
-                 Text="{Binding EditableSeat.Status, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Row="2" Grid.Column="1" Content="Értékesítés"
+                HorizontalAlignment="Right" VerticalAlignment="Center"
+                Width="73"  Height="21"  Margin="5"
+                IsCancel="True"
+                Command="{Binding SellSeatCommand}"/>
 
         <Button Grid.Row="6" Grid.Column="0" Content="Mégsem"
                 HorizontalAlignment="Left" VerticalAlignment="Center"
                 Width="73"  Height="21"  Margin="5"
                 IsCancel="True"
-                Command="{Binding CancelScreeningEditCommand}"/>
+                Command="{Binding CancelSeatEditCommand}"/>
 
         <Button Grid.Row="6" Grid.Column="1" Content="Mentés"
                 HorizontalAlignment="Right" VerticalAlignment="Center"
                 Width="73"  Height="21"  Margin="5"
                 IsDefault="True"
-                Command="{Binding SaveScreeningEditCommand}"/>
+                Command="{Binding SaveSeatEditCommand}"/>
     </Grid>
 </Window>
 

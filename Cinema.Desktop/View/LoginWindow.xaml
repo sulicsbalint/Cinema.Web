@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Cinema.Desktop.View"
         mc:Ignorable="d"
         FocusManager.FocusedElement="{Binding ElementName=txtName}"
-        Title="Cinema - Login" Height="Auto" Width="250"
+        Title="Filmszínház - Bejelentkezés" Height="Auto" Width="250"
         ResizeMode="NoResize" SizeToContent="Height" >
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -18,14 +18,14 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Name:" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Név:" />
         <TextBox Grid.Row="0" Grid.Column="1" Margin="5" Name="txtName"
                  Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Password:" />
+        <Label Grid.Row="1" Grid.Column="0" Content="Jelszó:" />
         <PasswordBox Grid.Row="1" Grid.Column="1" Name="txtPassword" Margin="5" />
 
-        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Login"
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Bejelentkezés"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
                 Padding="2"  Margin="5"
                 IsDefault="True"

@@ -14,73 +14,78 @@
             <i:InvokeCommandAction Command="{Binding CancelScreeningEditCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Helyek frissítése" Command="{Binding RefreshSeatsCommand}" />
+        </Menu>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Kezdés:" VerticalAlignment="Center" />
-        <xctk:DateTimePicker Grid.Row="0" Grid.Column="1" Margin="5"
-                    Value="{Binding EditableScreening.StartTime}"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Kezdés:" VerticalAlignment="Center" />
+            <xctk:DateTimePicker Grid.Row="0" Grid.Column="1" Margin="5"
+                        Value="{Binding EditableScreening.StartTime}"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Film:" VerticalAlignment="Center" />
-        <ComboBox Grid.Row="2" Grid.Column="1" Margin="5"
-                  ItemsSource="{Binding Movies}"
-                  SelectedValue="{Binding EditableScreening.MovieId}"
-                  SelectedValuePath="Id"
-                  DisplayMemberPath="Title" />
+            <Label Grid.Row="2" Grid.Column="0" Content="Film:" VerticalAlignment="Center" />
+            <ComboBox Grid.Row="2" Grid.Column="1" Margin="5"
+                      ItemsSource="{Binding Movies}"
+                      SelectedValue="{Binding EditableScreening.MovieId}"
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="Title" />
         
-        <Label Grid.Row="3" Grid.Column="0" Content="Terem:" VerticalAlignment="Center" />
-        <ComboBox Grid.Row="3" Grid.Column="1" Margin="5"
-                  ItemsSource="{Binding Rooms}"
-                  SelectedValue="{Binding EditableScreening.RoomId}"
-                  SelectedValuePath="Id"
-                  DisplayMemberPath="Name" />
+            <Label Grid.Row="3" Grid.Column="0" Content="Terem:" VerticalAlignment="Center" />
+            <ComboBox Grid.Row="3" Grid.Column="1" Margin="5"
+                      ItemsSource="{Binding Rooms}"
+                      SelectedValue="{Binding EditableScreening.RoomId}"
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="Name" />
         
-        <Label Grid.Row="4" Grid.Column="0" Content="Helyek:" VerticalAlignment="Center" />
-        <DataGrid Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Seats}" 
-                      VerticalContentAlignment="Stretch" IsReadOnly="True"
-                      AutoGenerateColumns="False" 
-                      SelectedItem="{Binding SelectedSeat}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectSeatCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Sor" Binding="{Binding Row}" />
-                <DataGridTextColumn Header="Oszlop" Binding="{Binding Column}" />
-                <DataGridTextColumn Header="Státusz" Binding="{Binding Status}" />
-                <DataGridTextColumn Header="Foglaló neve" Binding="{Binding ReserverName}" />
-                <DataGridTextColumn Header="Foglaló telefonszáma" Binding="{Binding ReserverPhone}" />
-            </DataGrid.Columns>
-        </DataGrid>
+            <Label Grid.Row="4" Grid.Column="0" Content="Helyek:" VerticalAlignment="Center" />
+            <DataGrid Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Seats}" 
+                          VerticalContentAlignment="Stretch" IsReadOnly="True"
+                          AutoGenerateColumns="False" 
+                          SelectedItem="{Binding SelectedSeat}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectSeatCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Sor" Binding="{Binding Row}" />
+                    <DataGridTextColumn Header="Oszlop" Binding="{Binding Column}" />
+                    <DataGridTextColumn Header="Státusz" Binding="{Binding Status}" />
+                    <DataGridTextColumn Header="Foglaló neve" Binding="{Binding ReserverName}" />
+                    <DataGridTextColumn Header="Foglaló telefonszáma" Binding="{Binding ReserverPhone}" />
+                </DataGrid.Columns>
+            </DataGrid>
 
-        <StackPanel Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Width="Auto"  Height="21" Margin="5" Content="Hely szerkesztése" Command="{Binding EditSeatCommand}" />
-        </StackPanel>
+            <StackPanel Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Width="Auto"  Height="21" Margin="5" Content="Hely szerkesztése" Command="{Binding EditSeatCommand}" />
+            </StackPanel>
 
-        <Button Grid.Row="6" Grid.Column="0" Content="Mégsem"
-                HorizontalAlignment="Left" VerticalAlignment="Center"
-                Width="73"  Height="21"  Margin="5"
-                IsCancel="True"
-                Command="{Binding CancelScreeningEditCommand}"/>
+            <Button Grid.Row="6" Grid.Column="0" Content="Mégsem"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Width="73"  Height="21"  Margin="5"
+                    IsCancel="True"
+                    Command="{Binding CancelScreeningEditCommand}"/>
 
-        <Button Grid.Row="6" Grid.Column="1" Content="Mentés"
-                HorizontalAlignment="Right" VerticalAlignment="Center"
-                Width="73"  Height="21"  Margin="5"
-                IsDefault="True"
-                Command="{Binding SaveScreeningEditCommand}"/>
-    </Grid>
+            <Button Grid.Row="6" Grid.Column="1" Content="Mentés"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Width="73"  Height="21"  Margin="5"
+                    IsDefault="True"
+                    Command="{Binding SaveScreeningEditCommand}"/>
+        </Grid>
+    </DockPanel>
 </Window>
 
