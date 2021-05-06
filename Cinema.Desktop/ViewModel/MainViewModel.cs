@@ -27,6 +27,11 @@ namespace Cinema.Desktop.ViewModel
         /*******************************Room******************************/
         private ObservableCollection<RoomViewModel> _rooms;
 
+        /*******************************Seat******************************/
+        private ObservableCollection<SeatViewModel> _seats;
+        private SeatViewModel _selectedSeat;
+        private SeatViewModel _editableSeat;
+
         #endregion
 
         #region Properties
@@ -88,12 +93,33 @@ namespace Cinema.Desktop.ViewModel
             set { _rooms = value; OnPropertyChanged(); }
         }
 
+        /*******************************Seat******************************/
+        public ObservableCollection<SeatViewModel> Seats
+        {
+            get { return _seats; }
+            set { _seats = value; OnPropertyChanged(); }
+        }
+
+        public SeatViewModel SelectedSeat
+        {
+            get { return _selectedSeat; }
+            set { _selectedSeat = value; OnPropertyChanged(); }
+        }
+
+        public SeatViewModel EditableSeat
+        {
+            get { return _editableSeat; }
+            set { _editableSeat = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         #region Commands
 
         public DelegateCommand RefreshMoviesCommand { get; private set; }
         public DelegateCommand SelectCommand { get; private set; }
+        public DelegateCommand SelectScreeningCommand { get; private set; }
+        public DelegateCommand SelectSeatCommand { get; private set; }
         public DelegateCommand LogoutCommand { get; private set; }
 
         /*****************************Movie*****************************/
@@ -126,6 +152,13 @@ namespace Cinema.Desktop.ViewModel
         public DelegateCommand SaveScreeningEditCommand { get; private set; }
         public DelegateCommand CancelScreeningEditCommand { get; private set; }
 
+        /**********************************Seat**********************************/
+        public DelegateCommand EditSeatCommand { get; private set; }
+
+        //Edit
+        public DelegateCommand SaveSeatEditCommand { get; private set; }
+        public DelegateCommand CancelSeatEditCommand { get; private set; }
+
         #endregion
 
         #region Events
@@ -154,6 +187,11 @@ namespace Cinema.Desktop.ViewModel
         public event EventHandler StartingScreeningCreate;
         public event EventHandler FinishingScreeningCreate;
 
+        /**************************Seat***************************/
+        //Edit
+        public event EventHandler StartingSeatEdit;
+        public event EventHandler FinishingSeatEdit;
+
         #endregion
 
         #region Constructor
@@ -163,6 +201,7 @@ namespace Cinema.Desktop.ViewModel
             _service = service;
             RefreshMoviesCommand = new DelegateCommand(_ => LoadMoviesAsync());
             SelectCommand = new DelegateCommand(_ => LoadScreeningsAsync(SelectedMovie));
+            SelectScreeningCommand = new DelegateCommand(_ => LoadSeatsAsync(SelectedScreening));
             LogoutCommand = new DelegateCommand(_ => LogoutAsync());
 
             /***********************************************Movie*****************************************************/
@@ -194,6 +233,13 @@ namespace Cinema.Desktop.ViewModel
             //Add
             SaveScreeningCreateCommand = new DelegateCommand(_ => SaveScreeningCreate());
             CancelScreeningCreateCommand = new DelegateCommand(_ => CancelScreeningCreate());
+
+            /********************************************************Seat***************************************************************/
+            EditSeatCommand = new DelegateCommand(_ => !(SelectedSeat is null), _ => StartEditSeat());
+
+            //Edit
+            SaveSeatEditCommand = new DelegateCommand(_ => SaveSeatEdit());
+            CancelSeatEditCommand = new DelegateCommand(_ => CancelSeatEdit());
         }
 
         #endregion
@@ -366,6 +412,11 @@ namespace Cinema.Desktop.ViewModel
             {
                 OnMessageApplication($"Unexpected error occured! ({ex.Message})");
             }
+            catch (Exception)
+            {
+                OnMessageApplication("A megadott időpontban nem lehet új előadást a megadott teremben létrhozni!");
+                return;
+            }
             FinishingScreeningCreate?.Invoke(this, EventArgs.Empty);
         }
 
@@ -382,12 +433,56 @@ namespace Cinema.Desktop.ViewModel
             {
                 await _service.DeleteScreeningAsync(screening.Id);
                 Screenings.Remove(SelectedScreening);
-                SelectedMovie = null;
+                SelectedScreening = null;
             }
             catch (Exception ex) when (ex is NetworkException || ex is HttpRequestException)
             {
                 OnMessageApplication($"Unexpected error occured! ({ex.Message})");
             }
+        }
+
+        #endregion
+
+        #region Seat methods
+
+        private async void LoadSeatsAsync(ScreeningViewModel screening)
+        {
+            if (screening == null) return;
+
+            try
+            {
+                Seats = new ObservableCollection<SeatViewModel>(await _service.LoadSeatsAsync(screening.Id));
+            }
+            catch (Exception e) when (e is NetworkException || e is HttpRequestException)
+            {
+                OnMessageApplication($"Unexpected error occured ({e.Message})");
+            }
+        }
+
+        private void StartEditSeat()
+        {
+            EditableSeat = SelectedSeat.ShallowClone();
+            StartingSeatEdit?.Invoke(this, EventArgs.Empty);
+        }
+
+        private async void SaveSeatEdit()
+        {
+            try
+            {
+                SelectedSeat.CopyFrom(EditableSeat);
+                await _service.UpdateSeatAsync((SeatDto)SelectedSeat);
+            }
+            catch (Exception ex) when (ex is NetworkException || ex is HttpRequestException)
+            {
+                OnMessageApplication($"Unexpected error occured! ({ex.Message})");
+            }
+            FinishingSeatEdit?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void CancelSeatEdit()
+        {
+            EditableSeat = null;
+            FinishingSeatEdit?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

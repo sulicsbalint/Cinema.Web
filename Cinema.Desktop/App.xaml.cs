@@ -28,6 +28,8 @@ namespace Cinema.Desktop
         private ScreeningCreatorWindow _screeningCreatorView;
         private ScreeningEditorWindow _screeningEditorView;
 
+        private SeatEditorWindow _seatEditorView;
+
         #endregion
 
         #region Constructor
@@ -80,6 +82,11 @@ namespace Cinema.Desktop
             //Add
             _mainViewModel.StartingScreeningCreate += _mainViewModel_StartingScreeningCreate;
             _mainViewModel.FinishingScreeningCreate += _mainViewModel_FinishingScreeningCreate;
+
+            /*************************************Seat*************************************/
+            //Edit
+            _mainViewModel.StartingSeatEdit += _mainViewModel_StartingSeatEdit;
+            _mainViewModel.FinishingSeatEdit += _mainViewModel_FinishingSeatEdit;
 
             _mainView = new MainWindow
             {
@@ -249,6 +256,27 @@ namespace Cinema.Desktop
             if (_screeningCreatorView.IsActive)
             {
                 _screeningCreatorView.Close();
+            }
+        }
+
+        #endregion
+
+        #region Seat methods
+
+        private void _mainViewModel_StartingSeatEdit(object sender, EventArgs e)
+        {
+            _seatEditorView = new SeatEditorWindow
+            {
+                DataContext = _mainViewModel
+            };
+            _seatEditorView.ShowDialog();
+        }
+
+        private void _mainViewModel_FinishingSeatEdit(object sender, EventArgs e)
+        {
+            if (_seatEditorView.IsActive)
+            {
+                _seatEditorView.Close();
             }
         }
 

@@ -4,13 +4,13 @@ namespace Cinema.Persistence.DTO
 {
     public class ScreeningDto
     {
-        public Int32 Id { get; set; }
+        public int Id { get; set; }
 
-        public Int32 MovieId { get; set; }
+        public int MovieId { get; set; }
 
         public DateTime StartTime { get; set; }
 
-        public Int32 RoomId { get; set; }
+        public int RoomId { get; set; }
 
         public static explicit operator Screening(ScreeningDto dto) => new Screening
         {

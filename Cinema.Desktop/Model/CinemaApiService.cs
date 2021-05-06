@@ -156,11 +156,11 @@ namespace Cinema.Desktop.Model
 
         #endregion
 
-        #region Room service
+        #region Room services
 
         public async Task<IEnumerable<RoomViewModel>> LoadRoomsAsync()
         {
-            var response = await _client.GetAsync("api/Movies");
+            var response = await _client.GetAsync("api/Rooms");
 
             if (response.IsSuccessStatusCode)
             {
@@ -168,6 +168,32 @@ namespace Cinema.Desktop.Model
             }
 
             throw new NetworkException("Service returned response: " + response.StatusCode);
+        }
+
+        #endregion
+
+        #region Seat services
+
+        public async Task<IEnumerable<SeatViewModel>> LoadSeatsAsync(int screeningId)
+        {
+            var response = await _client.GetAsync($"api/Seats/Screening/{screeningId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsAsync<IEnumerable<SeatViewModel>>();
+            }
+
+            throw new NetworkException("Service returned response: " + response.StatusCode);
+        }
+
+        public async Task UpdateSeatAsync(SeatDto seat)
+        {
+            HttpResponseMessage response = await _client.PutAsJsonAsync($"api/Seats/{seat.Id}", seat);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new NetworkException("Service returned response: " + response.StatusCode);
+            }
         }
 
         #endregion
