@@ -1,5 +1,4 @@
-﻿using Cinema.Persistence;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Cinema.Persistence.Services
 {
@@ -27,6 +26,7 @@ namespace Cinema.Persistence.Services
         //Seat
         List<Seat> GetSeats();
         BookViewModel GetSeatsByScreeningId(int id);
+        bool UpdateSeat(Seat seat);
         bool UpdateSeats(List<Seat> seats);
     }
 }

@@ -258,6 +258,25 @@ namespace Cinema.Persistence.Services
 
         #region Seat services
 
+        public bool UpdateSeat(Seat seat)
+        {
+            try
+            {
+                _context.Update(seat);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+            catch (DbUpdateException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private List<Seat> CreateSeats()
         {
             var seats = new List<Seat>
