@@ -2,6 +2,8 @@
 {
     public class SeatDto
     {
+        #region Properties
+
         public int Id { get; set; }
 
         public int ScreeningId { get; set; }
@@ -15,6 +17,24 @@
         public string ReserverName { get; set; }
 
         public string ReserverPhone { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        public bool IsValid()
+        {
+            if (ReserverName is null || ReserverPhone is null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+
+        #region Operators
 
         public static explicit operator Seat(SeatDto dto) => new Seat
         {
@@ -37,5 +57,7 @@
             ReserverName = s.ReserverName,
             ReserverPhone = s.ReserverPhone
         };
+
+        #endregion
     }
 }

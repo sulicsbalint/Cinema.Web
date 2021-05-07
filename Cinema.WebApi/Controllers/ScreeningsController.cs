@@ -57,14 +57,17 @@ namespace Cinema.WebApi.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [Authorize]
         [HttpPut("{id}")]
-        public IActionResult PutScreening(int id, ScreeningDto screening)
+        public IActionResult PutScreening(int id, ScreeningDto screeningDto)
         {
-            if (id != screening.Id)
+            if (id != screeningDto.Id)
             {
                 return BadRequest();
             }
 
-            if (_service.UpdateScreening((Screening)screening))
+            if (!screeningDto.IsValid())
+                return StatusCode(StatusCodes.Status406NotAcceptable);
+
+            if (_service.UpdateScreening((Screening)screeningDto))
                 return Ok();
             else
                 return StatusCode(StatusCodes.Status500InternalServerError);
@@ -77,6 +80,9 @@ namespace Cinema.WebApi.Controllers
         [HttpPost]
         public ActionResult<ScreeningDto> PostScreening(ScreeningDto screeningDto)
         {
+            if (!screeningDto.IsValid())
+                return StatusCode(StatusCodes.Status406NotAcceptable);
+
             var screening = _service.CreateScreening((Screening)screeningDto);
             if (screening == null)
             {

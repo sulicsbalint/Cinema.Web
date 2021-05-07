@@ -52,14 +52,17 @@ namespace Cinema.WebApi.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [Authorize]
         [HttpPut("{id}")]
-        public IActionResult PutSeat(int id, SeatDto seat)
+        public IActionResult PutSeat(int id, SeatDto seatDto)
         {
-            if (id != seat.Id)
+            if (id != seatDto.Id)
             {
                 return BadRequest();
             }
 
-            if (_service.UpdateSeat((Seat)seat))
+            if (!seatDto.IsValid())
+                return StatusCode(StatusCodes.Status406NotAcceptable);
+
+            if (_service.UpdateSeat((Seat)seatDto))
                 return Ok();
             else
                 return StatusCode(StatusCodes.Status500InternalServerError);

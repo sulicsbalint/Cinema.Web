@@ -49,14 +49,17 @@ namespace Cinema.WebApi.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [Authorize]
         [HttpPut("{id}")]
-        public IActionResult PutMovie(int id, MovieDto movie)
+        public IActionResult PutMovie(int id, MovieDto movieDto)
         {
-            if (id != movie.Id)
+            if (id != movieDto.Id)
             {
                 return BadRequest();
             }
 
-            if (_service.UpdateMovie((Movie)movie)) 
+            if (!movieDto.IsValid())
+                return StatusCode(StatusCodes.Status406NotAcceptable);
+
+            if (_service.UpdateMovie((Movie)movieDto)) 
                 return Ok();
             else 
                 return StatusCode(StatusCodes.Status500InternalServerError);
@@ -69,6 +72,9 @@ namespace Cinema.WebApi.Controllers
         [HttpPost]
         public ActionResult<MovieDto> PostMovie(MovieDto movieDto)
         {
+            if (!movieDto.IsValid())
+                return StatusCode(StatusCodes.Status406NotAcceptable);
+
             var movie = _service.CreateMovie((Movie)movieDto);
             if (movie == null)
             {

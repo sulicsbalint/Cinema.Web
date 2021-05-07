@@ -4,6 +4,8 @@ namespace Cinema.Persistence.DTO
 {
     public class ScreeningDto
     {
+        #region Properties
+
         public int Id { get; set; }
 
         public int MovieId { get; set; }
@@ -11,6 +13,24 @@ namespace Cinema.Persistence.DTO
         public DateTime StartTime { get; set; }
 
         public int RoomId { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        public bool IsValid()
+        {
+            if (RoomId == 0 || MovieId == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+
+        #region Operators
 
         public static explicit operator Screening(ScreeningDto dto) => new Screening
         {
@@ -27,5 +47,7 @@ namespace Cinema.Persistence.DTO
             StartTime = s.StartTime,
             RoomId = s.RoomId
         };
+
+        #endregion
     }
 }

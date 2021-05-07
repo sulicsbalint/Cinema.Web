@@ -4,6 +4,8 @@ namespace Cinema.Persistence.DTO
 {
     public class MovieDto
     {
+        #region Properties
+
         public Int32 Id { get; set; }
 
         public String Title { get; set; }
@@ -21,6 +23,24 @@ namespace Cinema.Persistence.DTO
         public byte[] Cover { get; set; }
 
         public DateTime Added { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        public bool IsValid()
+        {
+            if (Title is null || Director is null || Star is null || Image is null || Cover is null || Description is null || Duration == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+
+        #region Operators
 
         public static explicit operator Movie(MovieDto dto) => new Movie
         { 
@@ -47,5 +67,7 @@ namespace Cinema.Persistence.DTO
             Cover = m.Cover,
             Added = m.Added
         };
+
+        #endregion
     }
 }
