@@ -274,6 +274,11 @@ namespace Cinema.Desktop.ViewModel
         {
             try
             {
+                if (!EditableMovie.IsValid())
+                {
+                    OnMessageApplication("Minden mezőt ki kell tölteni.");
+                    return;
+                }
                 SelectedMovie.CopyFrom(EditableMovie);
                 await _service.UpdateMovieAsync((MovieDto)SelectedMovie);
             }
@@ -306,9 +311,15 @@ namespace Cinema.Desktop.ViewModel
         {
             try
             {
+                if (!CreateableMovie.IsValid())
+                {
+                    OnMessageApplication("Minden mezőt ki kell tölteni.");
+                    return;
+                }
                 var newMovie = new MovieViewModel();
                 newMovie.CopyFrom(CreateableMovie);
                 var movieDto = (MovieDto)newMovie;
+
                 await _service.CreateMovieAsync(movieDto);
                 newMovie.Id = movieDto.Id;
                 Movies.Add(newMovie);
@@ -371,6 +382,11 @@ namespace Cinema.Desktop.ViewModel
         {
             try
             {
+                if (!EditableScreening.IsValid())
+                {
+                    OnMessageApplication("Minden mezőt ki kell tölteni.");
+                    return;
+                }
                 SelectedScreening.CopyFrom(EditableScreening);
                 await _service.UpdateScreeningAsync((ScreeningDto)SelectedScreening);
             }
@@ -404,6 +420,11 @@ namespace Cinema.Desktop.ViewModel
         {
             try
             {
+                if (!CreateableScreening.IsValid())
+                {
+                    OnMessageApplication("Minden mezőt ki kell tölteni.");
+                    return;
+                }
                 var newScreening = new ScreeningViewModel();
                 newScreening.CopyFrom(CreateableScreening);
                 var screeningDto = (ScreeningDto)newScreening;
@@ -493,6 +514,11 @@ namespace Cinema.Desktop.ViewModel
         {
             try
             {
+                if (!EditableSeat.IsValid())
+                {
+                    OnMessageApplication("Minden mezőt ki kell tölteni.");
+                    return;
+                }
                 SelectedSeat.CopyFrom(EditableSeat);
                 SelectedSeat.Status = 2;
                 await _service.UpdateSeatAsync((SeatDto)SelectedSeat);

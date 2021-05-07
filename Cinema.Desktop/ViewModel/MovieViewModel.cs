@@ -97,6 +97,16 @@ namespace Cinema.Desktop.ViewModel
             Added = rhs.Added;
         }
 
+        public bool IsValid()
+        {
+            if (Title is null || Director is null || Star is null || Image is null || Cover is null || Description is null || Duration == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
         #region Operators

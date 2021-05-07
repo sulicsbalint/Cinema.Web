@@ -57,6 +57,16 @@ namespace Cinema.Desktop.ViewModel
             RoomId = rhs.RoomId;
         }
 
+        public bool IsValid()
+        {
+            if (RoomId == 0 || MovieId == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
         #region Operators

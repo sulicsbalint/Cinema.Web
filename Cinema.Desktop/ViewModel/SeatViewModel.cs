@@ -80,6 +80,16 @@ namespace Cinema.Desktop.ViewModel
             ReserverPhone = rhs.ReserverPhone;
         }
 
+        public bool IsValid()
+        {
+            if (ReserverName is null || ReserverPhone is null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
         #region Operators
